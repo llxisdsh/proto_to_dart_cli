@@ -105,9 +105,9 @@ class TypeDefinition {
     final jsonKey = "json['$key']";
     final fieldKey = fixFieldName(key, typeDef: this, privateField: privateField);
     if (name == "DateTime") {
-      return "$fieldKey = json['$key']?.map((v) => DateTime.tryParse(v));";
-    } else if (name == "List" && subtype == "DateTime") {
       return "$fieldKey = json['$key'] != null ? DateTime.tryParse(json['$key']) : null;";
+    } else if (name == "List" && subtype == "DateTime") {
+      return "$fieldKey = json['$key']?.map((v) => DateTime.tryParse(v));";
     } else {
       if (isPrimitive) {
         if (name == "List") {

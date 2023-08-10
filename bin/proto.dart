@@ -503,14 +503,17 @@ class User {
         shot!.add(Shot.fromJson(v));
       });
     }
-    lastTime = json['LastTime']?.map((v) => DateTime.tryParse(v));
+    lastTime =
+        json['LastTime'] != null ? DateTime.tryParse(json['LastTime']) : null;
     gps = json['Gps'] != null ? Gps.fromJson(json['Gps']) : null;
     contact =
         json['Contact'] != null ? Contact.fromJson(json['Contact']) : null;
     hp = json['Hp'];
     pwd = json['Pwd'];
-    vipTime = json['VipTime']?.map((v) => DateTime.tryParse(v));
-    banTime = json['BanTime']?.map((v) => DateTime.tryParse(v));
+    vipTime =
+        json['VipTime'] != null ? DateTime.tryParse(json['VipTime']) : null;
+    banTime =
+        json['BanTime'] != null ? DateTime.tryParse(json['BanTime']) : null;
     noteStat =
         json['NoteStat'] != null ? NoteStat.fromJson(json['NoteStat']) : null;
     blackHp = json['BlackHp']?.cast<String>();
@@ -698,7 +701,8 @@ class Contact {
     money = json['Money'];
     gps = json['Gps'] != null ? Gps.fromJson(json['Gps']) : null;
     msg = json['Msg'];
-    startTime = json['StartTime']?.map((v) => DateTime.tryParse(v));
+    startTime =
+        json['StartTime'] != null ? DateTime.tryParse(json['StartTime']) : null;
     hours = json['Hours'];
   }
 
@@ -1053,7 +1057,9 @@ class ContactSummer {
     dist = json['Dist'];
     online = json['Online'];
     vip = json['Vip'];
-    contactTime = json['ContactTime']?.map((v) => DateTime.tryParse(v));
+    contactTime = json['ContactTime'] != null
+        ? DateTime.tryParse(json['ContactTime'])
+        : null;
     contactMe = json['ContactMe'];
   }
 
@@ -1118,7 +1124,8 @@ class GmMsg {
   GmMsg.fromJson(Map<String, dynamic> json) {
     subj = json['Subj'];
     content = json['Content'];
-    msgTime = json['MsgTime']?.map((v) => DateTime.tryParse(v));
+    msgTime =
+        json['MsgTime'] != null ? DateTime.tryParse(json['MsgTime']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -1712,7 +1719,9 @@ class ReqContactList {
   ReqContactList.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
     pwd = json['Pwd'];
-    lastContactTime = json['LastContactTime']?.map((v) => DateTime.tryParse(v));
+    lastContactTime = json['LastContactTime'] != null
+        ? DateTime.tryParse(json['LastContactTime'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -2357,7 +2366,8 @@ class ReqGmMsgList {
   ReqGmMsgList.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
     pwd = json['Pwd'];
-    lastTime = json['LastTime']?.map((v) => DateTime.tryParse(v));
+    lastTime =
+        json['LastTime'] != null ? DateTime.tryParse(json['LastTime']) : null;
     reqGmMsgList = json['ReqGmMsgList_'];
   }
 
