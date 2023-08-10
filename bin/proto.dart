@@ -399,9 +399,15 @@ class UserBase {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (nm != null) {
+      data['Nm'] = nm;
+    }
+    if (logo != null) {
+      data['Logo'] = logo;
+    }
     return data;
   }
 }
@@ -518,45 +524,99 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
-    data['Sex'] = sex;
-    data['SexMatch'] = sexMatch;
-    data['SexGay'] = sexGay;
-    data['Demands'] = demands;
-    data['Height'] = height;
-    data['Weight'] = weight;
-    data['Birthday'] = birthday;
-    data['Degree'] = degree;
-    data['Career'] = career;
-    data['Income'] = income;
-    data['Labels'] = labels;
-    data['School'] = school;
-    data['Company'] = company;
-    data['Extend'] = extend;
-    data['LogoBig'] = logoBig;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (nm != null) {
+      data['Nm'] = nm;
+    }
+    if (logo != null) {
+      data['Logo'] = logo;
+    }
+    if (sex != null) {
+      data['Sex'] = sex;
+    }
+    if (sexMatch != null) {
+      data['SexMatch'] = sexMatch;
+    }
+    if (sexGay != null) {
+      data['SexGay'] = sexGay;
+    }
+    if (demands != null) {
+      data['Demands'] = demands;
+    }
+    if (height != null) {
+      data['Height'] = height;
+    }
+    if (weight != null) {
+      data['Weight'] = weight;
+    }
+    if (birthday != null) {
+      data['Birthday'] = birthday;
+    }
+    if (degree != null) {
+      data['Degree'] = degree;
+    }
+    if (career != null) {
+      data['Career'] = career;
+    }
+    if (income != null) {
+      data['Income'] = income;
+    }
+    if (labels != null) {
+      data['Labels'] = labels;
+    }
+    if (school != null) {
+      data['School'] = school;
+    }
+    if (company != null) {
+      data['Company'] = company;
+    }
+    if (extend != null) {
+      data['Extend'] = extend;
+    }
+    if (logoBig != null) {
+      data['LogoBig'] = logoBig;
+    }
     if (shot != null) {
       data['Shot'] = shot!.map((v) => v.toJson()).toList();
     }
-    data['LastTime'] = lastTime;
+    if (lastTime != null) {
+      data['LastTime'] = lastTime;
+    }
     if (gps != null) {
       data['Gps'] = gps!.toJson();
     }
     if (contact != null) {
       data['Contact'] = contact!.toJson();
     }
-    data['Hp'] = hp;
-    data['Pwd'] = pwd;
-    data['VipTime'] = vipTime;
-    data['BanTime'] = banTime;
+    if (hp != null) {
+      data['Hp'] = hp;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (vipTime != null) {
+      data['VipTime'] = vipTime;
+    }
+    if (banTime != null) {
+      data['BanTime'] = banTime;
+    }
     if (noteStat != null) {
       data['NoteStat'] = noteStat!.toJson();
     }
-    data['BlackHp'] = blackHp;
-    data['BlackWechat'] = blackWechat;
-    data['BlackId'] = blackId;
-    data['BlackGpsRange'] = blackGpsRange;
+    if (blackHp != null) {
+      data['BlackHp'] = blackHp;
+    }
+    if (blackWechat != null) {
+      data['BlackWechat'] = blackWechat;
+    }
+    if (blackId != null) {
+      data['BlackId'] = blackId;
+    }
+    if (blackGpsRange != null) {
+      data['BlackGpsRange'] = blackGpsRange;
+    }
     return data;
   }
 }
@@ -574,8 +634,12 @@ class Shot {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Key'] = key;
-    data['Ok'] = ok;
+    if (key != null) {
+      data['Key'] = key;
+    }
+    if (ok != null) {
+      data['Ok'] = ok;
+    }
     return data;
   }
 }
@@ -595,9 +659,15 @@ class Gps {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Lng'] = lng;
-    data['Lat'] = lat;
-    data['GpsDesc'] = gpsDesc;
+    if (lng != null) {
+      data['Lng'] = lng;
+    }
+    if (lat != null) {
+      data['Lat'] = lat;
+    }
+    if (gpsDesc != null) {
+      data['GpsDesc'] = gpsDesc;
+    }
     return data;
   }
 }
@@ -638,17 +708,27 @@ class Contact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Wechat'] = wechat;
+    if (wechat != null) {
+      data['Wechat'] = wechat;
+    }
     if (shot != null) {
       data['Shot'] = shot!.map((v) => v.toJson()).toList();
     }
-    data['Money'] = money;
+    if (money != null) {
+      data['Money'] = money;
+    }
     if (gps != null) {
       data['Gps'] = gps!.toJson();
     }
-    data['Msg'] = msg;
-    data['StartTime'] = startTime;
-    data['Hours'] = hours;
+    if (msg != null) {
+      data['Msg'] = msg;
+    }
+    if (startTime != null) {
+      data['StartTime'] = startTime;
+    }
+    if (hours != null) {
+      data['Hours'] = hours;
+    }
     return data;
   }
 }
@@ -668,9 +748,15 @@ class NoteStat {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Count'] = count;
-    data['Money'] = money;
-    data['Score'] = score;
+    if (count != null) {
+      data['Count'] = count;
+    }
+    if (money != null) {
+      data['Money'] = money;
+    }
+    if (score != null) {
+      data['Score'] = score;
+    }
     return data;
   }
 }
@@ -723,19 +809,45 @@ class UserSummer {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
-    data['Sex'] = sex;
-    data['SexMatch'] = sexMatch;
-    data['SexGay'] = sexGay;
-    data['Demands'] = demands;
-    data['Height'] = height;
-    data['Weight'] = weight;
-    data['Birthday'] = birthday;
-    data['Dist'] = dist;
-    data['Online'] = online;
-    data['Vip'] = vip;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (nm != null) {
+      data['Nm'] = nm;
+    }
+    if (logo != null) {
+      data['Logo'] = logo;
+    }
+    if (sex != null) {
+      data['Sex'] = sex;
+    }
+    if (sexMatch != null) {
+      data['SexMatch'] = sexMatch;
+    }
+    if (sexGay != null) {
+      data['SexGay'] = sexGay;
+    }
+    if (demands != null) {
+      data['Demands'] = demands;
+    }
+    if (height != null) {
+      data['Height'] = height;
+    }
+    if (weight != null) {
+      data['Weight'] = weight;
+    }
+    if (birthday != null) {
+      data['Birthday'] = birthday;
+    }
+    if (dist != null) {
+      data['Dist'] = dist;
+    }
+    if (online != null) {
+      data['Online'] = online;
+    }
+    if (vip != null) {
+      data['Vip'] = vip;
+    }
     return data;
   }
 }
@@ -824,30 +936,72 @@ class UserDetail {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
-    data['Sex'] = sex;
-    data['SexMatch'] = sexMatch;
-    data['SexGay'] = sexGay;
-    data['Demands'] = demands;
-    data['Height'] = height;
-    data['Weight'] = weight;
-    data['Birthday'] = birthday;
-    data['Degree'] = degree;
-    data['Career'] = career;
-    data['Income'] = income;
-    data['Labels'] = labels;
-    data['School'] = school;
-    data['Company'] = company;
-    data['Extend'] = extend;
-    data['LogoBig'] = logoBig;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (nm != null) {
+      data['Nm'] = nm;
+    }
+    if (logo != null) {
+      data['Logo'] = logo;
+    }
+    if (sex != null) {
+      data['Sex'] = sex;
+    }
+    if (sexMatch != null) {
+      data['SexMatch'] = sexMatch;
+    }
+    if (sexGay != null) {
+      data['SexGay'] = sexGay;
+    }
+    if (demands != null) {
+      data['Demands'] = demands;
+    }
+    if (height != null) {
+      data['Height'] = height;
+    }
+    if (weight != null) {
+      data['Weight'] = weight;
+    }
+    if (birthday != null) {
+      data['Birthday'] = birthday;
+    }
+    if (degree != null) {
+      data['Degree'] = degree;
+    }
+    if (career != null) {
+      data['Career'] = career;
+    }
+    if (income != null) {
+      data['Income'] = income;
+    }
+    if (labels != null) {
+      data['Labels'] = labels;
+    }
+    if (school != null) {
+      data['School'] = school;
+    }
+    if (company != null) {
+      data['Company'] = company;
+    }
+    if (extend != null) {
+      data['Extend'] = extend;
+    }
+    if (logoBig != null) {
+      data['LogoBig'] = logoBig;
+    }
     if (shot != null) {
       data['Shot'] = shot!.map((v) => v.toJson()).toList();
     }
-    data['Dist'] = dist;
-    data['Online'] = online;
-    data['Vip'] = vip;
+    if (dist != null) {
+      data['Dist'] = dist;
+    }
+    if (online != null) {
+      data['Online'] = online;
+    }
+    if (vip != null) {
+      data['Vip'] = vip;
+    }
     if (contact != null) {
       data['Contact'] = contact!.toJson();
     }
@@ -911,21 +1065,51 @@ class ContactSummer {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
-    data['Sex'] = sex;
-    data['SexMatch'] = sexMatch;
-    data['SexGay'] = sexGay;
-    data['Demands'] = demands;
-    data['Height'] = height;
-    data['Weight'] = weight;
-    data['Birthday'] = birthday;
-    data['Dist'] = dist;
-    data['Online'] = online;
-    data['Vip'] = vip;
-    data['ContactTime'] = contactTime;
-    data['ContactMe'] = contactMe;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (nm != null) {
+      data['Nm'] = nm;
+    }
+    if (logo != null) {
+      data['Logo'] = logo;
+    }
+    if (sex != null) {
+      data['Sex'] = sex;
+    }
+    if (sexMatch != null) {
+      data['SexMatch'] = sexMatch;
+    }
+    if (sexGay != null) {
+      data['SexGay'] = sexGay;
+    }
+    if (demands != null) {
+      data['Demands'] = demands;
+    }
+    if (height != null) {
+      data['Height'] = height;
+    }
+    if (weight != null) {
+      data['Weight'] = weight;
+    }
+    if (birthday != null) {
+      data['Birthday'] = birthday;
+    }
+    if (dist != null) {
+      data['Dist'] = dist;
+    }
+    if (online != null) {
+      data['Online'] = online;
+    }
+    if (vip != null) {
+      data['Vip'] = vip;
+    }
+    if (contactTime != null) {
+      data['ContactTime'] = contactTime;
+    }
+    if (contactMe != null) {
+      data['ContactMe'] = contactMe;
+    }
     return data;
   }
 }
@@ -946,9 +1130,15 @@ class GmMsg {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Subj'] = subj;
-    data['Content'] = content;
-    data['MsgTime'] = msgTime;
+    if (subj != null) {
+      data['Subj'] = subj;
+    }
+    if (content != null) {
+      data['Content'] = content;
+    }
+    if (msgTime != null) {
+      data['MsgTime'] = msgTime;
+    }
     return data;
   }
 }
@@ -970,10 +1160,18 @@ class UserNote {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Money'] = money;
-    data['Score'] = score;
-    data['Content'] = content;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (money != null) {
+      data['Money'] = money;
+    }
+    if (score != null) {
+      data['Score'] = score;
+    }
+    if (content != null) {
+      data['Content'] = content;
+    }
     return data;
   }
 }
@@ -991,8 +1189,12 @@ class ReqHead {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
     return data;
   }
 }
@@ -1010,8 +1212,12 @@ class RetHead {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -1033,9 +1239,15 @@ class ReqLogin {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['IsReg'] = isReg;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (isReg != null) {
+      data['IsReg'] = isReg;
+    }
     if (user != null) {
       data['User'] = user!.toJson();
     }
@@ -1060,12 +1272,18 @@ class RetLogin {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (user != null) {
       data['User'] = user!.toJson();
     }
-    data['RetLogin_'] = retLogin;
+    if (retLogin != null) {
+      data['RetLogin_'] = retLogin;
+    }
     return data;
   }
 }
@@ -1085,9 +1303,15 @@ class ReqGetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['ReqGetMe_'] = reqGetMe;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (reqGetMe != null) {
+      data['ReqGetMe_'] = reqGetMe;
+    }
     return data;
   }
 }
@@ -1109,12 +1333,18 @@ class RetGetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (user != null) {
       data['User'] = user!.toJson();
     }
-    data['RetGetMe_'] = retGetMe;
+    if (retGetMe != null) {
+      data['RetGetMe_'] = retGetMe;
+    }
     return data;
   }
 }
@@ -1136,12 +1366,18 @@ class ReqSetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
     if (user != null) {
       data['User'] = user!.toJson();
     }
-    data['Field'] = field;
+    if (field != null) {
+      data['Field'] = field;
+    }
     return data;
   }
 }
@@ -1163,12 +1399,18 @@ class RetSetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (user != null) {
       data['User'] = user!.toJson();
     }
-    data['RetSetMe_'] = retSetMe;
+    if (retSetMe != null) {
+      data['RetSetMe_'] = retSetMe;
+    }
     return data;
   }
 }
@@ -1190,12 +1432,18 @@ class ReqNear {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
     if (gps != null) {
       data['Gps'] = gps!.toJson();
     }
-    data['Dist'] = dist;
+    if (dist != null) {
+      data['Dist'] = dist;
+    }
     return data;
   }
 }
@@ -1220,8 +1468,12 @@ class RetNear {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (userSummer != null) {
       data['UserSummer'] = userSummer!.map((v) => v.toJson()).toList();
     }
@@ -1244,9 +1496,15 @@ class ReqDetail {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['UserId'] = userId;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (userId != null) {
+      data['UserId'] = userId;
+    }
     return data;
   }
 }
@@ -1268,8 +1526,12 @@ class RetDetail {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (userDetail != null) {
       data['UserDetail'] = userDetail!.toJson();
     }
@@ -1292,9 +1554,15 @@ class ReqContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['ToId'] = toId;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (toId != null) {
+      data['ToId'] = toId;
+    }
     return data;
   }
 }
@@ -1315,8 +1583,12 @@ class RetContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (contact != null) {
       data['Contact'] = contact!.toJson();
     }
@@ -1340,8 +1612,12 @@ class ReqOpenContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
     if (contact != null) {
       data['Contact'] = contact!.toJson();
     }
@@ -1364,9 +1640,15 @@ class RetOpenContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['RetOpenContact_'] = retOpenContact;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (retOpenContact != null) {
+      data['RetOpenContact_'] = retOpenContact;
+    }
     return data;
   }
 }
@@ -1386,9 +1668,15 @@ class ReqCloseContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['ReqCloseContact_'] = reqCloseContact;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (reqCloseContact != null) {
+      data['ReqCloseContact_'] = reqCloseContact;
+    }
     return data;
   }
 }
@@ -1408,9 +1696,15 @@ class RetCloseContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['RetCloseContact_'] = retCloseContact;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (retCloseContact != null) {
+      data['RetCloseContact_'] = retCloseContact;
+    }
     return data;
   }
 }
@@ -1432,9 +1726,15 @@ class ReqContactList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['LastContactTime'] = lastContactTime;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (lastContactTime != null) {
+      data['LastContactTime'] = lastContactTime;
+    }
     return data;
   }
 }
@@ -1459,8 +1759,12 @@ class RetContactList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (contactSummer != null) {
       data['ContactSummer'] = contactSummer!.map((v) => v.toJson()).toList();
     }
@@ -1485,10 +1789,18 @@ class ReqBlack {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['Type'] = type;
-    data['Key'] = key;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (type != null) {
+      data['Type'] = type;
+    }
+    if (key != null) {
+      data['Key'] = key;
+    }
     return data;
   }
 }
@@ -1508,9 +1820,15 @@ class RetBlack {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['Key'] = key;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (key != null) {
+      data['Key'] = key;
+    }
     return data;
   }
 }
@@ -1530,9 +1848,15 @@ class ReqBlackId {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['BlackId'] = blackId;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (blackId != null) {
+      data['BlackId'] = blackId;
+    }
     return data;
   }
 }
@@ -1553,8 +1877,12 @@ class RetBlackId {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (userBase != null) {
       data['UserBase'] = userBase!.toJson();
     }
@@ -1577,9 +1905,15 @@ class ReqBlackIdList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['ReqBlackIdList_'] = reqBlackIdList;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (reqBlackIdList != null) {
+      data['ReqBlackIdList_'] = reqBlackIdList;
+    }
     return data;
   }
 }
@@ -1604,8 +1938,12 @@ class RetBlackIdList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (userBase != null) {
       data['UserBase'] = userBase!.map((v) => v.toJson()).toList();
     }
@@ -1628,9 +1966,15 @@ class ReqLogout {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['ReqLogout_'] = reqLogout;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (reqLogout != null) {
+      data['ReqLogout_'] = reqLogout;
+    }
     return data;
   }
 }
@@ -1650,9 +1994,15 @@ class RetLogout {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['RetLogout_'] = retLogout;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (retLogout != null) {
+      data['RetLogout_'] = retLogout;
+    }
     return data;
   }
 }
@@ -1674,8 +2024,12 @@ class ReqReport {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
     if (userReport != null) {
       data['UserReport'] = userReport!.toJson();
     }
@@ -1702,11 +2056,21 @@ class UserReport {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['UserId'] = userId;
-    data['Subj'] = subj;
-    data['Content'] = content;
-    data['ImgKey'] = imgKey;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (userId != null) {
+      data['UserId'] = userId;
+    }
+    if (subj != null) {
+      data['Subj'] = subj;
+    }
+    if (content != null) {
+      data['Content'] = content;
+    }
+    if (imgKey != null) {
+      data['ImgKey'] = imgKey;
+    }
     return data;
   }
 }
@@ -1726,9 +2090,15 @@ class RetReport {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['RetReport_'] = retReport;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (retReport != null) {
+      data['RetReport_'] = retReport;
+    }
     return data;
   }
 }
@@ -1749,8 +2119,12 @@ class ReqSetNote {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
     if (userNote != null) {
       data['UserNote'] = userNote!.toJson();
     }
@@ -1773,9 +2147,15 @@ class RetSetNote {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['RetSetNote_'] = retSetNote;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (retSetNote != null) {
+      data['RetSetNote_'] = retSetNote;
+    }
     return data;
   }
 }
@@ -1797,10 +2177,18 @@ class ReqGetNote {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['UserId'] = userId;
-    data['ReqGetNote_'] = reqGetNote;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (userId != null) {
+      data['UserId'] = userId;
+    }
+    if (reqGetNote != null) {
+      data['ReqGetNote_'] = reqGetNote;
+    }
     return data;
   }
 }
@@ -1821,8 +2209,12 @@ class RetGetNote {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (userNote != null) {
       data['UserNote'] = userNote!.toJson();
     }
@@ -1852,12 +2244,24 @@ class ReqGmBan {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['BanId'] = banId;
-    data['Ban'] = ban;
-    data['BanDuration'] = banDuration;
-    data['Cause'] = cause;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (banId != null) {
+      data['BanId'] = banId;
+    }
+    if (ban != null) {
+      data['Ban'] = ban;
+    }
+    if (banDuration != null) {
+      data['BanDuration'] = banDuration;
+    }
+    if (cause != null) {
+      data['Cause'] = cause;
+    }
     return data;
   }
 }
@@ -1877,9 +2281,15 @@ class RetGmBan {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['RetGmBan_'] = retGmBan;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (retGmBan != null) {
+      data['RetGmBan_'] = retGmBan;
+    }
     return data;
   }
 }
@@ -1901,9 +2311,15 @@ class ReqGmMsg {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['UserId'] = userId;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (userId != null) {
+      data['UserId'] = userId;
+    }
     if (gmMsg != null) {
       data['GmMsg'] = gmMsg!.toJson();
     }
@@ -1926,9 +2342,15 @@ class RetGmMsg {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['RetGmMsg_'] = retGmMsg;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (retGmMsg != null) {
+      data['RetGmMsg_'] = retGmMsg;
+    }
     return data;
   }
 }
@@ -1951,10 +2373,18 @@ class ReqGmMsgList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['LastTime'] = lastTime;
-    data['ReqGmMsgList_'] = reqGmMsgList;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (lastTime != null) {
+      data['LastTime'] = lastTime;
+    }
+    if (reqGmMsgList != null) {
+      data['ReqGmMsgList_'] = reqGmMsgList;
+    }
     return data;
   }
 }
@@ -1979,8 +2409,12 @@ class RetGmMsgList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (gmMsg != null) {
       data['GmMsg'] = gmMsg!.map((v) => v.toJson()).toList();
     }
@@ -2007,11 +2441,21 @@ class ReqOss {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Pwd'] = pwd;
-    data['RegHp'] = regHp;
-    data['RegPwd'] = regPwd;
-    data['Ext'] = ext;
+    if (id != null) {
+      data['Id'] = id;
+    }
+    if (pwd != null) {
+      data['Pwd'] = pwd;
+    }
+    if (regHp != null) {
+      data['RegHp'] = regHp;
+    }
+    if (regPwd != null) {
+      data['RegPwd'] = regPwd;
+    }
+    if (ext != null) {
+      data['Ext'] = ext;
+    }
     return data;
   }
 }
@@ -2036,8 +2480,12 @@ class RetOss {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err != null) {
+      data['Err'] = err;
+    }
+    if (errDesc != null) {
+      data['ErrDesc'] = errDesc;
+    }
     if (ossUrl != null) {
       data['OssUrl'] = ossUrl!.map((v) => v.toJson()).toList();
     }
@@ -2058,8 +2506,12 @@ class OssUrl {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Key'] = key;
-    data['Url'] = url;
+    if (key != null) {
+      data['Key'] = key;
+    }
+    if (url != null) {
+      data['Url'] = url;
+    }
     return data;
   }
 }

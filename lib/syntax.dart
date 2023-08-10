@@ -130,7 +130,7 @@ class TypeDefinition {
     final fieldKey = fixFieldName(key, typeDef: this, privateField: privateField);
     final thisKey = fieldKey;
     if (isPrimitive) {
-      return "data['$key'] = $thisKey;";
+      return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey;\n\t\t}";
     } else if (name == 'List') {
       // class list
       return """if ($thisKey != null) {
