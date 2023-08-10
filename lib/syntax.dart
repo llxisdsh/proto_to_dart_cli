@@ -104,43 +104,44 @@ class TypeDefinition {
   String jsonParseExpression(String key, bool privateField) {
     final jsonKey = "json['$key']";
     final fieldKey = fixFieldName(key, typeDef: this, privateField: privateField);
-    if (isPrimitive) {
-      if (name == "List") {
-        return "$fieldKey = json['$key']?.cast<$subtype>();";
-      } else if (name == "List" && subtype == "DateTime") {
-        return "$fieldKey = json['$key']?.map((v) => DateTime.tryParse(v));";
-      } else if (name == "DateTime") {
-        return "$fieldKey = json['$key'] != null ? DateTime.tryParse(json['$key']) : null;";
-      }
-      return "$fieldKey = json['$key'];";
-    } else if (name == "List" && subtype == "DateTime") {
+    if (name == "DateTime") {
       return "$fieldKey = json['$key']?.map((v) => DateTime.tryParse(v));";
-    } else if (name == "DateTime") {
+    } else if (name == "List" && subtype == "DateTime") {
       return "$fieldKey = json['$key'] != null ? DateTime.tryParse(json['$key']) : null;";
-    } else if (name == 'List') {
-      // list of class
-      return "if (json['$key'] != null) {\n\t\t\t$fieldKey = <$subtype>[];\n\t\t\tjson['$key'].forEach((v) { $fieldKey!.add($subtype.fromJson(v)); });\n\t\t}";
     } else {
-      // class
-      return "$fieldKey = json['$key'] != null ? ${_buildParseClass(jsonKey)} : null;";
+      if (isPrimitive) {
+        if (name == "List") {
+          return "$fieldKey = json['$key']?.cast<$subtype>();";
+        }
+        return "$fieldKey = json['$key'];";
+      } else if (name == 'List') {
+        // list of class
+        return "if (json['$key'] != null) {\n\t\t\t$fieldKey = <$subtype>[];\n\t\t\tjson['$key'].forEach((v) { $fieldKey!.add($subtype.fromJson(v)); });\n\t\t}";
+      } else {
+        // class
+        return "$fieldKey = json['$key'] != null ? ${_buildParseClass(jsonKey)} : null;";
+      }
     }
   }
 
   String toJsonExpression(String key, bool privateField) {
     final fieldKey = fixFieldName(key, typeDef: this, privateField: privateField);
     final thisKey = fieldKey;
-    if (isPrimitive) {
-      return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey;\n\t\t}";
-    } else if (name == 'List') {
-      // class list
-      return """if ($thisKey != null) {
-      data['$key'] = $thisKey!.map((v) => ${_buildToJsonClass('v', false)}).toList();
-    }""";
+
+    if (name == "DateTime") {
+      return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.toIso8601String();\n\t\t}";
+    } else if (name == "List" && subtype == "DateTime") {
+      return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => v.toIso8601String()).toList();\n\t\t}";
     } else {
-      // class
-      return """if ($thisKey != null) {
-      data['$key'] = ${_buildToJsonClass(thisKey)};
-    }""";
+      if (isPrimitive) {
+        return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey;\n\t\t}";
+      } else if (name == 'List') {
+        // class list
+        return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => ${_buildToJsonClass('v', false)}).toList();\n\t\t}";
+      } else {
+        // class
+        return "if ($thisKey != null) {\n\t\t\tdata['$key'] = ${_buildToJsonClass(thisKey)};\n\t\t}";
+      }
     }
   }
 }

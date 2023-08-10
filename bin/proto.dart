@@ -503,17 +503,14 @@ class User {
         shot!.add(Shot.fromJson(v));
       });
     }
-    lastTime =
-        json['LastTime'] != null ? DateTime.tryParse(json['LastTime']) : null;
+    lastTime = json['LastTime']?.map((v) => DateTime.tryParse(v));
     gps = json['Gps'] != null ? Gps.fromJson(json['Gps']) : null;
     contact =
         json['Contact'] != null ? Contact.fromJson(json['Contact']) : null;
     hp = json['Hp'];
     pwd = json['Pwd'];
-    vipTime =
-        json['VipTime'] != null ? DateTime.tryParse(json['VipTime']) : null;
-    banTime =
-        json['BanTime'] != null ? DateTime.tryParse(json['BanTime']) : null;
+    vipTime = json['VipTime']?.map((v) => DateTime.tryParse(v));
+    banTime = json['BanTime']?.map((v) => DateTime.tryParse(v));
     noteStat =
         json['NoteStat'] != null ? NoteStat.fromJson(json['NoteStat']) : null;
     blackHp = json['BlackHp']?.cast<String>();
@@ -582,7 +579,7 @@ class User {
       data['Shot'] = shot!.map((v) => v.toJson()).toList();
     }
     if (lastTime != null) {
-      data['LastTime'] = lastTime;
+      data['LastTime'] = lastTime!.toIso8601String();
     }
     if (gps != null) {
       data['Gps'] = gps!.toJson();
@@ -597,10 +594,10 @@ class User {
       data['Pwd'] = pwd;
     }
     if (vipTime != null) {
-      data['VipTime'] = vipTime;
+      data['VipTime'] = vipTime!.toIso8601String();
     }
     if (banTime != null) {
-      data['BanTime'] = banTime;
+      data['BanTime'] = banTime!.toIso8601String();
     }
     if (noteStat != null) {
       data['NoteStat'] = noteStat!.toJson();
@@ -701,8 +698,7 @@ class Contact {
     money = json['Money'];
     gps = json['Gps'] != null ? Gps.fromJson(json['Gps']) : null;
     msg = json['Msg'];
-    startTime =
-        json['StartTime'] != null ? DateTime.tryParse(json['StartTime']) : null;
+    startTime = json['StartTime']?.map((v) => DateTime.tryParse(v));
     hours = json['Hours'];
   }
 
@@ -724,7 +720,7 @@ class Contact {
       data['Msg'] = msg;
     }
     if (startTime != null) {
-      data['StartTime'] = startTime;
+      data['StartTime'] = startTime!.toIso8601String();
     }
     if (hours != null) {
       data['Hours'] = hours;
@@ -1057,9 +1053,7 @@ class ContactSummer {
     dist = json['Dist'];
     online = json['Online'];
     vip = json['Vip'];
-    contactTime = json['ContactTime'] != null
-        ? DateTime.tryParse(json['ContactTime'])
-        : null;
+    contactTime = json['ContactTime']?.map((v) => DateTime.tryParse(v));
     contactMe = json['ContactMe'];
   }
 
@@ -1105,7 +1099,7 @@ class ContactSummer {
       data['Vip'] = vip;
     }
     if (contactTime != null) {
-      data['ContactTime'] = contactTime;
+      data['ContactTime'] = contactTime!.toIso8601String();
     }
     if (contactMe != null) {
       data['ContactMe'] = contactMe;
@@ -1124,8 +1118,7 @@ class GmMsg {
   GmMsg.fromJson(Map<String, dynamic> json) {
     subj = json['Subj'];
     content = json['Content'];
-    msgTime =
-        json['MsgTime'] != null ? DateTime.tryParse(json['MsgTime']) : null;
+    msgTime = json['MsgTime']?.map((v) => DateTime.tryParse(v));
   }
 
   Map<String, dynamic> toJson() {
@@ -1137,7 +1130,7 @@ class GmMsg {
       data['Content'] = content;
     }
     if (msgTime != null) {
-      data['MsgTime'] = msgTime;
+      data['MsgTime'] = msgTime!.toIso8601String();
     }
     return data;
   }
@@ -1719,9 +1712,7 @@ class ReqContactList {
   ReqContactList.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
     pwd = json['Pwd'];
-    lastContactTime = json['LastContactTime'] != null
-        ? DateTime.tryParse(json['LastContactTime'])
-        : null;
+    lastContactTime = json['LastContactTime']?.map((v) => DateTime.tryParse(v));
   }
 
   Map<String, dynamic> toJson() {
@@ -1733,7 +1724,7 @@ class ReqContactList {
       data['Pwd'] = pwd;
     }
     if (lastContactTime != null) {
-      data['LastContactTime'] = lastContactTime;
+      data['LastContactTime'] = lastContactTime!.toIso8601String();
     }
     return data;
   }
@@ -2366,8 +2357,7 @@ class ReqGmMsgList {
   ReqGmMsgList.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
     pwd = json['Pwd'];
-    lastTime =
-        json['LastTime'] != null ? DateTime.tryParse(json['LastTime']) : null;
+    lastTime = json['LastTime']?.map((v) => DateTime.tryParse(v));
     reqGmMsgList = json['ReqGmMsgList_'];
   }
 
@@ -2380,7 +2370,7 @@ class ReqGmMsgList {
       data['Pwd'] = pwd;
     }
     if (lastTime != null) {
-      data['LastTime'] = lastTime;
+      data['LastTime'] = lastTime!.toIso8601String();
     }
     if (reqGmMsgList != null) {
       data['ReqGmMsgList_'] = reqGmMsgList;
