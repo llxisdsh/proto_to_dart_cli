@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:cli/helpers.dart';
 import 'package:cli/json_ast/json_ast.dart' show parse, Settings, Node;
@@ -75,14 +76,29 @@ class ModelGenerator {
         }
         classDefinition.addField(key, typeDef);
       }
-      final similarClass = allClasses.firstWhere((cd) => cd == classDefinition, orElse: () => ClassDefinition(""));
-      if (similarClass.name != "") {
-        final similarClassName = similarClass.name;
-        final currentClassName = classDefinition.name;
-        sameClassMapping[currentClassName] = similarClassName;
-      } else {
+
+      if (path == '') {
+        print('$_rootClassName is skip');
+      } else if (path.lastIndexOf('/') == 0) {
+        //TODO: 顶层类永远输出
+        print(path);
         allClasses.add(classDefinition);
+      } else {
+        //TODO: 相似类从最后寻找
+        //final similarClass = allClasses.firstWhere((cd) => cd == classDefinition, orElse: () => ClassDefinition(""));
+        final similarClass = allClasses.lastWhere((cd) => cd == classDefinition, orElse: () => ClassDefinition(""));
+        if (similarClass.name != "") {
+          final similarClassName = similarClass.name;
+          final currentClassName = classDefinition.name;
+          sameClassMapping[currentClassName] = similarClassName;
+          print('$path $similarClassName');
+        } else {
+          print('$path error not define!!!');
+          exit(-1);
+          //allClasses.add(classDefinition);
+        }
       }
+
       final dependencies = classDefinition.dependencies;
       for (var dependency in dependencies) {
         List<Warning> warns = <Warning>[];
