@@ -96,51 +96,74 @@ class TypeDefinition {
 
   String _buildToJsonClass(String expression, [bool nullGuard = true]) {
     if (nullGuard) {
-      return '$expression!.toJson()';
+      return '$expression.toJson()';
     }
     return '$expression.toJson()';
+  }
+
+  String defaultValue() {
+    if (isPrimitive) {
+      if (name == "List") {
+        return LIST_ZERO;
+      } else {
+        return "${PRIMITIVE_TYPES_DEFAULT[name]}";
+      }
+    } else if (name == 'List') {
+      return LIST_ZERO;
+    } else {
+      return "${subtype ?? name}()";
+    }
   }
 
   String jsonParseExpression(String key, bool privateField) {
     final jsonKey = "json['$key']";
     final fieldKey = fixFieldName(key, typeDef: this, privateField: privateField);
     if (name == "DateTime") {
-      return "$fieldKey = json['$key'] != null ? DateTime.tryParse(json['$key']) : null;";
+      return "$fieldKey = json['$key'] != null ? DateTime.parse(json['$key']) : ${defaultValue()};";
     } else if (name == "List" && subtype == "DateTime") {
-      return "$fieldKey = json['$key']?.map((v) => DateTime.tryParse(v));";
+      return "$fieldKey = json['$key']?.map((v) => DateTime.parse(v)) ?? ${defaultValue()};";
     } else {
       if (isPrimitive) {
         if (name == "List") {
-          return "$fieldKey = json['$key']?.cast<$subtype>();";
+          return "$fieldKey = json['$key']?.cast<$subtype>() ?? ${defaultValue()};";
         }
-        return "$fieldKey = json['$key'];";
+        return "$fieldKey = json['$key'] ?? ${defaultValue()};";
       } else if (name == 'List') {
         // list of class
-        return "if (json['$key'] != null) {\n\t\t\t$fieldKey = <$subtype>[];\n\t\t\tjson['$key'].forEach((v) { $fieldKey!.add($subtype.fromJson(v)); });\n\t\t}";
+        return "$fieldKey = $LIST_ZERO;\n\t\t\tjson['$key']?.forEach((v) => $fieldKey.add($subtype.fromJson(v)));";
       } else {
         // class
-        return "$fieldKey = json['$key'] != null ? ${_buildParseClass(jsonKey)} : null;";
+        return "$fieldKey = json['$key'] != null ? ${_buildParseClass(jsonKey)} : ${defaultValue()};";
       }
     }
   }
+
+  //
+  // static const String constantDateTimeString = '2023-09-11T10:30:00Z';
+  // const DateTime dateTimeZero = DateTime.parse(constantDateTimeString);
 
   String toJsonExpression(String key, bool privateField) {
     final fieldKey = fixFieldName(key, typeDef: this, privateField: privateField);
     final thisKey = fieldKey;
 
     if (name == "DateTime") {
-      return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.toIso8601String();\n\t\t}";
+      //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.toIso8601String();\n\t\t}";
+      return "data['$key'] = $thisKey.toIso8601String();";
     } else if (name == "List" && subtype == "DateTime") {
-      return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => v.toIso8601String()).toList();\n\t\t}";
+      //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => v.toIso8601String()).toList();\n\t\t}";
+      return "data['$key'] = $thisKey.map((v) => v.toIso8601String()).toList();";
     } else {
       if (isPrimitive) {
-        return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey;\n\t\t}";
+        //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey;\n\t\t}";
+        return "data['$key'] = $thisKey;";
       } else if (name == 'List') {
         // class list
-        return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => ${_buildToJsonClass('v', false)}).toList();\n\t\t}";
+        //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => ${_buildToJsonClass('v', false)}).toList();\n\t\t}";
+        return "data['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v', false)}).toList();";
       } else {
         // class
-        return "if ($thisKey != null) {\n\t\t\tdata['$key'] = ${_buildToJsonClass(thisKey)};\n\t\t}";
+        //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = ${_buildToJsonClass(thisKey)};\n\t\t}";
+        return "data['$key'] = ${_buildToJsonClass(thisKey)};";
       }
     }
   }
@@ -158,11 +181,14 @@ class Dependency {
 class ClassDefinition {
   final String _name;
   final bool _privateFields;
+  final bool _notNull;
   final Map<String, TypeDefinition> fields = <String, TypeDefinition>{};
 
   String get name => _name;
 
   bool get privateFields => _privateFields;
+
+  bool get notNull => _privateFields == false && _notNull; // TODO: 添加字段非空选项, 只在_privateFields=false时有意义
 
   List<Dependency> get dependencies {
     final dependenciesList = <Dependency>[];
@@ -176,7 +202,7 @@ class ClassDefinition {
     return dependenciesList;
   }
 
-  ClassDefinition(this._name, [this._privateFields = false]);
+  ClassDefinition(this._name, [this._privateFields = false, this._notNull = true]);
 
   bool operator ==(other) {
     if (other is ClassDefinition) {
@@ -225,8 +251,16 @@ class ClassDefinition {
       final fieldName = fixFieldName(key, typeDef: f, privateField: privateFields);
       final sb = StringBuffer();
       sb.write('\t');
+      if (notNull) {
+        sb.write('late ');
+      }
       _addTypeDef(f, sb);
-      sb.write('? $fieldName;');
+      if (notNull) {
+        sb.write(' $fieldName;');
+      } else {
+        sb.write('? $fieldName;');
+      }
+
       return sb.toString();
     }).join('\n');
   }
@@ -282,13 +316,40 @@ class ClassDefinition {
     for (var key in fields.keys) {
       final f = fields[key]!;
       final fieldName = fixFieldName(key, typeDef: f, privateField: privateFields);
-      sb.write('this.$fieldName');
+      if (notNull) {
+        _addTypeDef(f, sb);
+        sb.write('? $fieldName');
+      } else {
+        sb.write('this.$fieldName');
+      }
       if (i != len) {
         sb.write(', ');
       }
       i++;
     }
-    sb.write('});');
+    if (notNull) {
+      sb.write('})\n');
+    } else {
+      sb.write('});');
+    }
+    i = 0;
+    for (var key in fields.keys) {
+      final f = fields[key]!;
+      final fieldName = fixFieldName(key, typeDef: f, privateField: privateFields);
+      if (i == 0) {
+        sb.write('\t\t\t: ');
+      } else {
+        sb.write('\t\t\t\t');
+      }
+      sb.write('$fieldName = $fieldName ?? ${f.defaultValue()}');
+      if (i < fields.length - 1) {
+        sb.write(',\n');
+      } else {
+        sb.write(';\n');
+      }
+      i++;
+    }
+
     return sb.toString();
   }
 

@@ -17,6 +17,22 @@ const Map<String, bool> PRIMITIVE_TYPES = {
   'List<bool>': true,
   'Null': true,
 };
+const DATETIME_ZERO = 'DateTime.utc(1)';
+const LIST_ZERO = '[]';
+
+const Map<String, String> PRIMITIVE_TYPES_DEFAULT = {
+  'int': '0',
+  'double': '0',
+  'String': '\'\'',
+  'bool': 'false',
+  'DateTime': DATETIME_ZERO,
+  'List<DateTime>': LIST_ZERO,
+  'List<int>': LIST_ZERO,
+  'List<double>': LIST_ZERO,
+  'List<String>': LIST_ZERO,
+  'List<bool>': LIST_ZERO,
+  'Null': 'null',
+};
 
 enum ListType { Object, String, Double, Int, Null, DateTime }
 
