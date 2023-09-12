@@ -101,6 +101,33 @@ class TypeDefinition {
     return '$expression.toJson()';
   }
 
+  String ifNotEmpty(String key) {
+    if (isPrimitive) {
+      if (name == "List") {
+        return '$key.isNotEmpty';
+      } else {
+        switch (name) {
+          case 'int':
+          case 'double':
+            return '$key != 0';
+          case 'String':
+            return '$key.isNotEmpty';
+          case 'bool':
+            return key;
+          case 'DateTime':
+            return '$key != $DATETIME_ZERO';
+          case 'Null':
+            return '$key.isNull';
+        }
+        return "";
+      }
+    } else if (name == 'List') {
+      return '$key.isNotEmpty';
+    } else {
+      return "";
+    }
+  }
+
   String defaultValue() {
     if (isPrimitive) {
       if (name == "List") {
@@ -148,18 +175,18 @@ class TypeDefinition {
 
     if (name == "DateTime") {
       //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.toIso8601String();\n\t\t}";
-      return "data['$key'] = $thisKey.toIso8601String();";
+      return "if (${ifNotEmpty(thisKey)}) { data['$key'] = $thisKey.toIso8601String(); }";
     } else if (name == "List" && subtype == "DateTime") {
       //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => v.toIso8601String()).toList();\n\t\t}";
-      return "data['$key'] = $thisKey.map((v) => v.toIso8601String()).toList();";
+      return "if ($thisKey.isNotEmpty}) { data['$key'] = $thisKey.map((v) => v.toIso8601String()).toList(); }";
     } else {
       if (isPrimitive) {
         //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey;\n\t\t}";
-        return "data['$key'] = $thisKey;";
+        return "if (${ifNotEmpty(thisKey)}) { data['$key'] = $thisKey; }";
       } else if (name == 'List') {
         // class list
         //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => ${_buildToJsonClass('v', false)}).toList();\n\t\t}";
-        return "data['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v', false)}).toList();";
+        return "if ($thisKey.isNotEmpty) { data['$key'] = $thisKey.map((v) => ${_buildToJsonClass('v', false)}).toList(); }";
       } else {
         // class
         //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = ${_buildToJsonClass(thisKey)};\n\t\t}";

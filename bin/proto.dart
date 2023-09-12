@@ -16,9 +16,15 @@ class UserBase {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
+    }
+    if (nm.isNotEmpty) {
+      data['Nm'] = nm;
+    }
+    if (logo.isNotEmpty) {
+      data['Logo'] = logo;
+    }
     return data;
   }
 }
@@ -38,8 +44,12 @@ class Photo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Key'] = key;
-    data['Real'] = real;
+    if (key.isNotEmpty) {
+      data['Key'] = key;
+    }
+    if (real) {
+      data['Real'] = real;
+    }
     return data;
   }
 }
@@ -59,8 +69,12 @@ class Shot {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Key'] = key;
-    data['Certified'] = certified;
+    if (key.isNotEmpty) {
+      data['Key'] = key;
+    }
+    if (certified) {
+      data['Certified'] = certified;
+    }
     return data;
   }
 }
@@ -72,7 +86,12 @@ class Memo {
   late String memoName;
   late List<String> photoKey;
 
-  Memo({String? userId, bool? isMeet, int? like, String? memoName, List<String>? photoKey})
+  Memo(
+      {String? userId,
+      bool? isMeet,
+      int? like,
+      String? memoName,
+      List<String>? photoKey})
       : userId = userId ?? '',
         isMeet = isMeet ?? false,
         like = like ?? 0,
@@ -89,11 +108,21 @@ class Memo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['UserId'] = userId;
-    data['IsMeet'] = isMeet;
-    data['Like'] = like;
-    data['MemoName'] = memoName;
-    data['PhotoKey'] = photoKey;
+    if (userId.isNotEmpty) {
+      data['UserId'] = userId;
+    }
+    if (isMeet) {
+      data['IsMeet'] = isMeet;
+    }
+    if (like != 0) {
+      data['Like'] = like;
+    }
+    if (memoName.isNotEmpty) {
+      data['MemoName'] = memoName;
+    }
+    if (photoKey.isNotEmpty) {
+      data['PhotoKey'] = photoKey;
+    }
     return data;
   }
 }
@@ -147,7 +176,54 @@ class User {
   late DateTime createdAt;
   late DateTime updatedAt;
 
-  User({String? id, String? nm, String? logo, int? sex, int? height, int? weight, DateTime? birthdate, bool? certified, String? nowDemands, bool? nowHavePlace, DateTime? lastTime, String? gpsName, DateTime? regTime, String? style, String? degree, String? career, String? income, List<String>? labels, String? logoBig, List<Photo>? photo, int? demands, String? intro, String? school, String? company, String? hp, String? pwd, List<Shot>? shot, String? wechat, List<double>? gps, DateTime? vipTime, DateTime? banTime, List<String>? blackHp, List<String>? blackWechat, List<String>? blackId, int? showHeightMin, int? showHeightMax, int? showWeightMin, int? showWeightMax, int? showAgeMin, int? showAgeMax, int? showMaxDist, bool? showMeet, bool? showNotLike, List<Memo>? memo, double? bestScore, DateTime? createdAt, DateTime? updatedAt})
+  User(
+      {String? id,
+      String? nm,
+      String? logo,
+      int? sex,
+      int? height,
+      int? weight,
+      DateTime? birthdate,
+      bool? certified,
+      String? nowDemands,
+      bool? nowHavePlace,
+      DateTime? lastTime,
+      String? gpsName,
+      DateTime? regTime,
+      String? style,
+      String? degree,
+      String? career,
+      String? income,
+      List<String>? labels,
+      String? logoBig,
+      List<Photo>? photo,
+      int? demands,
+      String? intro,
+      String? school,
+      String? company,
+      String? hp,
+      String? pwd,
+      List<Shot>? shot,
+      String? wechat,
+      List<double>? gps,
+      DateTime? vipTime,
+      DateTime? banTime,
+      List<String>? blackHp,
+      List<String>? blackWechat,
+      List<String>? blackId,
+      int? showHeightMin,
+      int? showHeightMax,
+      int? showWeightMin,
+      int? showWeightMax,
+      int? showAgeMin,
+      int? showAgeMax,
+      int? showMaxDist,
+      bool? showMeet,
+      bool? showNotLike,
+      List<Memo>? memo,
+      double? bestScore,
+      DateTime? createdAt,
+      DateTime? updatedAt})
       : id = id ?? '',
         nm = nm ?? '',
         logo = logo ?? '',
@@ -203,13 +279,19 @@ class User {
     sex = json['Sex'] ?? 0;
     height = json['Height'] ?? 0;
     weight = json['Weight'] ?? 0;
-    birthdate = json['Birthdate'] != null ? DateTime.parse(json['Birthdate']) : DateTime.utc(1);
+    birthdate = json['Birthdate'] != null
+        ? DateTime.parse(json['Birthdate'])
+        : DateTime.utc(1);
     certified = json['Certified'] ?? false;
     nowDemands = json['NowDemands'] ?? '';
     nowHavePlace = json['NowHavePlace'] ?? false;
-    lastTime = json['LastTime'] != null ? DateTime.parse(json['LastTime']) : DateTime.utc(1);
+    lastTime = json['LastTime'] != null
+        ? DateTime.parse(json['LastTime'])
+        : DateTime.utc(1);
     gpsName = json['GpsName'] ?? '';
-    regTime = json['RegTime'] != null ? DateTime.parse(json['RegTime']) : DateTime.utc(1);
+    regTime = json['RegTime'] != null
+        ? DateTime.parse(json['RegTime'])
+        : DateTime.utc(1);
     style = json['Style'] ?? '';
     degree = json['Degree'] ?? '';
     career = json['Career'] ?? '';
@@ -228,8 +310,12 @@ class User {
     json['Shot']?.forEach((v) => shot.add(Shot.fromJson(v)));
     wechat = json['Wechat'] ?? '';
     gps = json['Gps']?.cast<double>() ?? [];
-    vipTime = json['VipTime'] != null ? DateTime.parse(json['VipTime']) : DateTime.utc(1);
-    banTime = json['BanTime'] != null ? DateTime.parse(json['BanTime']) : DateTime.utc(1);
+    vipTime = json['VipTime'] != null
+        ? DateTime.parse(json['VipTime'])
+        : DateTime.utc(1);
+    banTime = json['BanTime'] != null
+        ? DateTime.parse(json['BanTime'])
+        : DateTime.utc(1);
     blackHp = json['BlackHp']?.cast<String>() ?? [];
     blackWechat = json['BlackWechat']?.cast<String>() ?? [];
     blackId = json['BlackId']?.cast<String>() ?? [];
@@ -245,59 +331,157 @@ class User {
     memo = [];
     json['Memo']?.forEach((v) => memo.add(Memo.fromJson(v)));
     bestScore = json['BestScore'] ?? 0;
-    createdAt = json['created_at'] != null ? DateTime.parse(json['created_at']) : DateTime.utc(1);
-    updatedAt = json['updated_at'] != null ? DateTime.parse(json['updated_at']) : DateTime.utc(1);
+    createdAt = json['created_at'] != null
+        ? DateTime.parse(json['created_at'])
+        : DateTime.utc(1);
+    updatedAt = json['updated_at'] != null
+        ? DateTime.parse(json['updated_at'])
+        : DateTime.utc(1);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
-    data['Sex'] = sex;
-    data['Height'] = height;
-    data['Weight'] = weight;
-    data['Birthdate'] = birthdate.toIso8601String();
-    data['Certified'] = certified;
-    data['NowDemands'] = nowDemands;
-    data['NowHavePlace'] = nowHavePlace;
-    data['LastTime'] = lastTime.toIso8601String();
-    data['GpsName'] = gpsName;
-    data['RegTime'] = regTime.toIso8601String();
-    data['Style'] = style;
-    data['Degree'] = degree;
-    data['Career'] = career;
-    data['Income'] = income;
-    data['Labels'] = labels;
-    data['LogoBig'] = logoBig;
-    data['Photo'] = photo.map((v) => v.toJson()).toList();
-    data['Demands'] = demands;
-    data['Intro'] = intro;
-    data['School'] = school;
-    data['Company'] = company;
-    data['Hp'] = hp;
-    data['Pwd'] = pwd;
-    data['Shot'] = shot.map((v) => v.toJson()).toList();
-    data['Wechat'] = wechat;
-    data['Gps'] = gps;
-    data['VipTime'] = vipTime.toIso8601String();
-    data['BanTime'] = banTime.toIso8601String();
-    data['BlackHp'] = blackHp;
-    data['BlackWechat'] = blackWechat;
-    data['BlackId'] = blackId;
-    data['ShowHeightMin'] = showHeightMin;
-    data['ShowHeightMax'] = showHeightMax;
-    data['ShowWeightMin'] = showWeightMin;
-    data['ShowWeightMax'] = showWeightMax;
-    data['ShowAgeMin'] = showAgeMin;
-    data['ShowAgeMax'] = showAgeMax;
-    data['ShowMaxDist'] = showMaxDist;
-    data['ShowMeet'] = showMeet;
-    data['ShowNotLike'] = showNotLike;
-    data['Memo'] = memo.map((v) => v.toJson()).toList();
-    data['BestScore'] = bestScore;
-    data['created_at'] = createdAt.toIso8601String();
-    data['updated_at'] = updatedAt.toIso8601String();
+    if (id.isNotEmpty) {
+      data['Id'] = id;
+    }
+    if (nm.isNotEmpty) {
+      data['Nm'] = nm;
+    }
+    if (logo.isNotEmpty) {
+      data['Logo'] = logo;
+    }
+    if (sex != 0) {
+      data['Sex'] = sex;
+    }
+    if (height != 0) {
+      data['Height'] = height;
+    }
+    if (weight != 0) {
+      data['Weight'] = weight;
+    }
+    if (birthdate != DateTime.utc(1)) {
+      data['Birthdate'] = birthdate.toIso8601String();
+    }
+    if (certified) {
+      data['Certified'] = certified;
+    }
+    if (nowDemands.isNotEmpty) {
+      data['NowDemands'] = nowDemands;
+    }
+    if (nowHavePlace) {
+      data['NowHavePlace'] = nowHavePlace;
+    }
+    if (lastTime != DateTime.utc(1)) {
+      data['LastTime'] = lastTime.toIso8601String();
+    }
+    if (gpsName.isNotEmpty) {
+      data['GpsName'] = gpsName;
+    }
+    if (regTime != DateTime.utc(1)) {
+      data['RegTime'] = regTime.toIso8601String();
+    }
+    if (style.isNotEmpty) {
+      data['Style'] = style;
+    }
+    if (degree.isNotEmpty) {
+      data['Degree'] = degree;
+    }
+    if (career.isNotEmpty) {
+      data['Career'] = career;
+    }
+    if (income.isNotEmpty) {
+      data['Income'] = income;
+    }
+    if (labels.isNotEmpty) {
+      data['Labels'] = labels;
+    }
+    if (logoBig.isNotEmpty) {
+      data['LogoBig'] = logoBig;
+    }
+    if (photo.isNotEmpty) {
+      data['Photo'] = photo.map((v) => v.toJson()).toList();
+    }
+    if (demands != 0) {
+      data['Demands'] = demands;
+    }
+    if (intro.isNotEmpty) {
+      data['Intro'] = intro;
+    }
+    if (school.isNotEmpty) {
+      data['School'] = school;
+    }
+    if (company.isNotEmpty) {
+      data['Company'] = company;
+    }
+    if (hp.isNotEmpty) {
+      data['Hp'] = hp;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (shot.isNotEmpty) {
+      data['Shot'] = shot.map((v) => v.toJson()).toList();
+    }
+    if (wechat.isNotEmpty) {
+      data['Wechat'] = wechat;
+    }
+    if (gps.isNotEmpty) {
+      data['Gps'] = gps;
+    }
+    if (vipTime != DateTime.utc(1)) {
+      data['VipTime'] = vipTime.toIso8601String();
+    }
+    if (banTime != DateTime.utc(1)) {
+      data['BanTime'] = banTime.toIso8601String();
+    }
+    if (blackHp.isNotEmpty) {
+      data['BlackHp'] = blackHp;
+    }
+    if (blackWechat.isNotEmpty) {
+      data['BlackWechat'] = blackWechat;
+    }
+    if (blackId.isNotEmpty) {
+      data['BlackId'] = blackId;
+    }
+    if (showHeightMin != 0) {
+      data['ShowHeightMin'] = showHeightMin;
+    }
+    if (showHeightMax != 0) {
+      data['ShowHeightMax'] = showHeightMax;
+    }
+    if (showWeightMin != 0) {
+      data['ShowWeightMin'] = showWeightMin;
+    }
+    if (showWeightMax != 0) {
+      data['ShowWeightMax'] = showWeightMax;
+    }
+    if (showAgeMin != 0) {
+      data['ShowAgeMin'] = showAgeMin;
+    }
+    if (showAgeMax != 0) {
+      data['ShowAgeMax'] = showAgeMax;
+    }
+    if (showMaxDist != 0) {
+      data['ShowMaxDist'] = showMaxDist;
+    }
+    if (showMeet) {
+      data['ShowMeet'] = showMeet;
+    }
+    if (showNotLike) {
+      data['ShowNotLike'] = showNotLike;
+    }
+    if (memo.isNotEmpty) {
+      data['Memo'] = memo.map((v) => v.toJson()).toList();
+    }
+    if (bestScore != 0) {
+      data['BestScore'] = bestScore;
+    }
+    if (createdAt != DateTime.utc(1)) {
+      data['created_at'] = createdAt.toIso8601String();
+    }
+    if (updatedAt != DateTime.utc(1)) {
+      data['updated_at'] = updatedAt.toIso8601String();
+    }
     return data;
   }
 }
@@ -320,7 +504,23 @@ class UserSummer {
   late bool isMeet;
   late int like;
 
-  UserSummer({String? id, String? nm, String? logo, int? sex, int? height, int? weight, DateTime? birthdate, bool? certified, String? nowDemands, bool? nowHavePlace, DateTime? lastTime, String? gpsName, double? dist, bool? online, bool? isMeet, int? like})
+  UserSummer(
+      {String? id,
+      String? nm,
+      String? logo,
+      int? sex,
+      int? height,
+      int? weight,
+      DateTime? birthdate,
+      bool? certified,
+      String? nowDemands,
+      bool? nowHavePlace,
+      DateTime? lastTime,
+      String? gpsName,
+      double? dist,
+      bool? online,
+      bool? isMeet,
+      int? like})
       : id = id ?? '',
         nm = nm ?? '',
         logo = logo ?? '',
@@ -345,11 +545,15 @@ class UserSummer {
     sex = json['Sex'] ?? 0;
     height = json['Height'] ?? 0;
     weight = json['Weight'] ?? 0;
-    birthdate = json['Birthdate'] != null ? DateTime.parse(json['Birthdate']) : DateTime.utc(1);
+    birthdate = json['Birthdate'] != null
+        ? DateTime.parse(json['Birthdate'])
+        : DateTime.utc(1);
     certified = json['Certified'] ?? false;
     nowDemands = json['NowDemands'] ?? '';
     nowHavePlace = json['NowHavePlace'] ?? false;
-    lastTime = json['LastTime'] != null ? DateTime.parse(json['LastTime']) : DateTime.utc(1);
+    lastTime = json['LastTime'] != null
+        ? DateTime.parse(json['LastTime'])
+        : DateTime.utc(1);
     gpsName = json['GpsName'] ?? '';
     dist = json['Dist'] ?? 0;
     online = json['Online'] ?? false;
@@ -359,22 +563,54 @@ class UserSummer {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
-    data['Sex'] = sex;
-    data['Height'] = height;
-    data['Weight'] = weight;
-    data['Birthdate'] = birthdate.toIso8601String();
-    data['Certified'] = certified;
-    data['NowDemands'] = nowDemands;
-    data['NowHavePlace'] = nowHavePlace;
-    data['LastTime'] = lastTime.toIso8601String();
-    data['GpsName'] = gpsName;
-    data['Dist'] = dist;
-    data['Online'] = online;
-    data['IsMeet'] = isMeet;
-    data['Like'] = like;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
+    }
+    if (nm.isNotEmpty) {
+      data['Nm'] = nm;
+    }
+    if (logo.isNotEmpty) {
+      data['Logo'] = logo;
+    }
+    if (sex != 0) {
+      data['Sex'] = sex;
+    }
+    if (height != 0) {
+      data['Height'] = height;
+    }
+    if (weight != 0) {
+      data['Weight'] = weight;
+    }
+    if (birthdate != DateTime.utc(1)) {
+      data['Birthdate'] = birthdate.toIso8601String();
+    }
+    if (certified) {
+      data['Certified'] = certified;
+    }
+    if (nowDemands.isNotEmpty) {
+      data['NowDemands'] = nowDemands;
+    }
+    if (nowHavePlace) {
+      data['NowHavePlace'] = nowHavePlace;
+    }
+    if (lastTime != DateTime.utc(1)) {
+      data['LastTime'] = lastTime.toIso8601String();
+    }
+    if (gpsName.isNotEmpty) {
+      data['GpsName'] = gpsName;
+    }
+    if (dist != 0) {
+      data['Dist'] = dist;
+    }
+    if (online) {
+      data['Online'] = online;
+    }
+    if (isMeet) {
+      data['IsMeet'] = isMeet;
+    }
+    if (like != 0) {
+      data['Like'] = like;
+    }
     return data;
   }
 }
@@ -408,7 +644,34 @@ class UserDetail {
   late bool online;
   late Memo memo;
 
-  UserDetail({String? id, String? nm, String? logo, int? sex, int? height, int? weight, DateTime? birthdate, bool? certified, String? nowDemands, bool? nowHavePlace, DateTime? lastTime, String? gpsName, DateTime? regTime, String? style, String? degree, String? career, String? income, List<String>? labels, String? logoBig, List<Photo>? photo, int? demands, String? intro, String? school, String? company, double? dist, bool? online, Memo? memo})
+  UserDetail(
+      {String? id,
+      String? nm,
+      String? logo,
+      int? sex,
+      int? height,
+      int? weight,
+      DateTime? birthdate,
+      bool? certified,
+      String? nowDemands,
+      bool? nowHavePlace,
+      DateTime? lastTime,
+      String? gpsName,
+      DateTime? regTime,
+      String? style,
+      String? degree,
+      String? career,
+      String? income,
+      List<String>? labels,
+      String? logoBig,
+      List<Photo>? photo,
+      int? demands,
+      String? intro,
+      String? school,
+      String? company,
+      double? dist,
+      bool? online,
+      Memo? memo})
       : id = id ?? '',
         nm = nm ?? '',
         logo = logo ?? '',
@@ -444,13 +707,19 @@ class UserDetail {
     sex = json['Sex'] ?? 0;
     height = json['Height'] ?? 0;
     weight = json['Weight'] ?? 0;
-    birthdate = json['Birthdate'] != null ? DateTime.parse(json['Birthdate']) : DateTime.utc(1);
+    birthdate = json['Birthdate'] != null
+        ? DateTime.parse(json['Birthdate'])
+        : DateTime.utc(1);
     certified = json['Certified'] ?? false;
     nowDemands = json['NowDemands'] ?? '';
     nowHavePlace = json['NowHavePlace'] ?? false;
-    lastTime = json['LastTime'] != null ? DateTime.parse(json['LastTime']) : DateTime.utc(1);
+    lastTime = json['LastTime'] != null
+        ? DateTime.parse(json['LastTime'])
+        : DateTime.utc(1);
     gpsName = json['GpsName'] ?? '';
-    regTime = json['RegTime'] != null ? DateTime.parse(json['RegTime']) : DateTime.utc(1);
+    regTime = json['RegTime'] != null
+        ? DateTime.parse(json['RegTime'])
+        : DateTime.utc(1);
     style = json['Style'] ?? '';
     degree = json['Degree'] ?? '';
     career = json['Career'] ?? '';
@@ -470,32 +739,84 @@ class UserDetail {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['Nm'] = nm;
-    data['Logo'] = logo;
-    data['Sex'] = sex;
-    data['Height'] = height;
-    data['Weight'] = weight;
-    data['Birthdate'] = birthdate.toIso8601String();
-    data['Certified'] = certified;
-    data['NowDemands'] = nowDemands;
-    data['NowHavePlace'] = nowHavePlace;
-    data['LastTime'] = lastTime.toIso8601String();
-    data['GpsName'] = gpsName;
-    data['RegTime'] = regTime.toIso8601String();
-    data['Style'] = style;
-    data['Degree'] = degree;
-    data['Career'] = career;
-    data['Income'] = income;
-    data['Labels'] = labels;
-    data['LogoBig'] = logoBig;
-    data['Photo'] = photo.map((v) => v.toJson()).toList();
-    data['Demands'] = demands;
-    data['Intro'] = intro;
-    data['School'] = school;
-    data['Company'] = company;
-    data['Dist'] = dist;
-    data['Online'] = online;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
+    }
+    if (nm.isNotEmpty) {
+      data['Nm'] = nm;
+    }
+    if (logo.isNotEmpty) {
+      data['Logo'] = logo;
+    }
+    if (sex != 0) {
+      data['Sex'] = sex;
+    }
+    if (height != 0) {
+      data['Height'] = height;
+    }
+    if (weight != 0) {
+      data['Weight'] = weight;
+    }
+    if (birthdate != DateTime.utc(1)) {
+      data['Birthdate'] = birthdate.toIso8601String();
+    }
+    if (certified) {
+      data['Certified'] = certified;
+    }
+    if (nowDemands.isNotEmpty) {
+      data['NowDemands'] = nowDemands;
+    }
+    if (nowHavePlace) {
+      data['NowHavePlace'] = nowHavePlace;
+    }
+    if (lastTime != DateTime.utc(1)) {
+      data['LastTime'] = lastTime.toIso8601String();
+    }
+    if (gpsName.isNotEmpty) {
+      data['GpsName'] = gpsName;
+    }
+    if (regTime != DateTime.utc(1)) {
+      data['RegTime'] = regTime.toIso8601String();
+    }
+    if (style.isNotEmpty) {
+      data['Style'] = style;
+    }
+    if (degree.isNotEmpty) {
+      data['Degree'] = degree;
+    }
+    if (career.isNotEmpty) {
+      data['Career'] = career;
+    }
+    if (income.isNotEmpty) {
+      data['Income'] = income;
+    }
+    if (labels.isNotEmpty) {
+      data['Labels'] = labels;
+    }
+    if (logoBig.isNotEmpty) {
+      data['LogoBig'] = logoBig;
+    }
+    if (photo.isNotEmpty) {
+      data['Photo'] = photo.map((v) => v.toJson()).toList();
+    }
+    if (demands != 0) {
+      data['Demands'] = demands;
+    }
+    if (intro.isNotEmpty) {
+      data['Intro'] = intro;
+    }
+    if (school.isNotEmpty) {
+      data['School'] = school;
+    }
+    if (company.isNotEmpty) {
+      data['Company'] = company;
+    }
+    if (dist != 0) {
+      data['Dist'] = dist;
+    }
+    if (online) {
+      data['Online'] = online;
+    }
     data['Memo'] = memo.toJson();
     return data;
   }
@@ -516,8 +837,12 @@ class ReqHead {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
     return data;
   }
 }
@@ -537,8 +862,12 @@ class RetHead {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -564,9 +893,15 @@ class ReqLogin {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['IsReg'] = isReg;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (isReg) {
+      data['IsReg'] = isReg;
+    }
     data['User'] = user.toJson();
     return data;
   }
@@ -590,8 +925,12 @@ class RetLogin {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     data['User'] = user.toJson();
     return data;
   }
@@ -612,8 +951,12 @@ class ReqGetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
     return data;
   }
 }
@@ -636,8 +979,12 @@ class RetGetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     data['User'] = user.toJson();
     return data;
   }
@@ -664,10 +1011,16 @@ class ReqSetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
     data['User'] = user.toJson();
-    data['Field'] = field;
+    if (field.isNotEmpty) {
+      data['Field'] = field;
+    }
     return data;
   }
 }
@@ -687,8 +1040,12 @@ class RetSetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -705,7 +1062,17 @@ class ReqNear {
   late bool showOnline;
   late bool showNoContact;
 
-  ReqNear({String? iD, String? pwd, List<double>? gps, String? type, int? skip, int? limit, bool? showCertified, bool? showHavePlace, bool? showOnline, bool? showNoContact})
+  ReqNear(
+      {String? iD,
+      String? pwd,
+      List<double>? gps,
+      String? type,
+      int? skip,
+      int? limit,
+      bool? showCertified,
+      bool? showHavePlace,
+      bool? showOnline,
+      bool? showNoContact})
       : iD = iD ?? '',
         pwd = pwd ?? '',
         gps = gps ?? [],
@@ -732,16 +1099,36 @@ class ReqNear {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['Gps'] = gps;
-    data['Type'] = type;
-    data['Skip'] = skip;
-    data['Limit'] = limit;
-    data['ShowCertified'] = showCertified;
-    data['ShowHavePlace'] = showHavePlace;
-    data['ShowOnline'] = showOnline;
-    data['ShowNoContact'] = showNoContact;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (gps.isNotEmpty) {
+      data['Gps'] = gps;
+    }
+    if (type.isNotEmpty) {
+      data['Type'] = type;
+    }
+    if (skip != 0) {
+      data['Skip'] = skip;
+    }
+    if (limit != 0) {
+      data['Limit'] = limit;
+    }
+    if (showCertified) {
+      data['ShowCertified'] = showCertified;
+    }
+    if (showHavePlace) {
+      data['ShowHavePlace'] = showHavePlace;
+    }
+    if (showOnline) {
+      data['ShowOnline'] = showOnline;
+    }
+    if (showNoContact) {
+      data['ShowNoContact'] = showNoContact;
+    }
     return data;
   }
 }
@@ -765,9 +1152,15 @@ class RetNear {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['UserSummer'] = userSummer.map((v) => v.toJson()).toList();
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (userSummer.isNotEmpty) {
+      data['UserSummer'] = userSummer.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -790,9 +1183,15 @@ class ReqDetail {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['UserId'] = userId;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (userId.isNotEmpty) {
+      data['UserId'] = userId;
+    }
     return data;
   }
 }
@@ -810,13 +1209,19 @@ class RetDetail {
   RetDetail.fromJson(Map<String, dynamic> json) {
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
-    userDetail = json['UserDetail'] != null ? UserDetail.fromJson(json['UserDetail']) : UserDetail();
+    userDetail = json['UserDetail'] != null
+        ? UserDetail.fromJson(json['UserDetail'])
+        : UserDetail();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     data['UserDetail'] = userDetail.toJson();
     return data;
   }
@@ -840,9 +1245,15 @@ class ReqGetContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['ToId'] = toId;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (toId.isNotEmpty) {
+      data['ToId'] = toId;
+    }
     return data;
   }
 }
@@ -865,9 +1276,15 @@ class RetGetContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['Wechat'] = wechat;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (wechat.isNotEmpty) {
+      data['Wechat'] = wechat;
+    }
     return data;
   }
 }
@@ -893,10 +1310,18 @@ class ReqBlack {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['Type'] = type;
-    data['Key'] = key;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (type.isNotEmpty) {
+      data['Type'] = type;
+    }
+    if (key.isNotEmpty) {
+      data['Key'] = key;
+    }
     return data;
   }
 }
@@ -919,9 +1344,15 @@ class RetBlack {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['Key'] = key;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (key.isNotEmpty) {
+      data['Key'] = key;
+    }
     return data;
   }
 }
@@ -944,9 +1375,15 @@ class ReqBlackId {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['BlackId'] = blackId;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (blackId != 0) {
+      data['BlackId'] = blackId;
+    }
     return data;
   }
 }
@@ -964,13 +1401,19 @@ class RetBlackId {
   RetBlackId.fromJson(Map<String, dynamic> json) {
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
-    userBase = json['UserBase'] != null ? UserBase.fromJson(json['UserBase']) : UserBase();
+    userBase = json['UserBase'] != null
+        ? UserBase.fromJson(json['UserBase'])
+        : UserBase();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     data['UserBase'] = userBase.toJson();
     return data;
   }
@@ -991,8 +1434,12 @@ class ReqBlackIdList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
     return data;
   }
 }
@@ -1016,9 +1463,15 @@ class RetBlackIdList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['UserBase'] = userBase.map((v) => v.toJson()).toList();
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (userBase.isNotEmpty) {
+      data['UserBase'] = userBase.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -1038,8 +1491,12 @@ class ReqLogout {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
     return data;
   }
 }
@@ -1059,8 +1516,12 @@ class RetLogout {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -1072,7 +1533,8 @@ class UserReport {
   late String content;
   late String imgKey;
 
-  UserReport({int? id, int? userId, String? subj, String? content, String? imgKey})
+  UserReport(
+      {int? id, int? userId, String? subj, String? content, String? imgKey})
       : id = id ?? 0,
         userId = userId ?? 0,
         subj = subj ?? '',
@@ -1089,11 +1551,21 @@ class UserReport {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['UserId'] = userId;
-    data['Subj'] = subj;
-    data['Content'] = content;
-    data['ImgKey'] = imgKey;
+    if (id != 0) {
+      data['Id'] = id;
+    }
+    if (userId != 0) {
+      data['UserId'] = userId;
+    }
+    if (subj.isNotEmpty) {
+      data['Subj'] = subj;
+    }
+    if (content.isNotEmpty) {
+      data['Content'] = content;
+    }
+    if (imgKey.isNotEmpty) {
+      data['ImgKey'] = imgKey;
+    }
     return data;
   }
 }
@@ -1111,13 +1583,19 @@ class ReqReport {
   ReqReport.fromJson(Map<String, dynamic> json) {
     iD = json['ID'] ?? '';
     pwd = json['Pwd'] ?? '';
-    userReport = json['UserReport'] != null ? UserReport.fromJson(json['UserReport']) : UserReport();
+    userReport = json['UserReport'] != null
+        ? UserReport.fromJson(json['UserReport'])
+        : UserReport();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
     data['UserReport'] = userReport.toJson();
     return data;
   }
@@ -1138,8 +1616,12 @@ class RetReport {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -1162,8 +1644,12 @@ class ReqSetMemo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
     data['Memo'] = memo.toJson();
     return data;
   }
@@ -1184,8 +1670,12 @@ class RetSetMemo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -1208,9 +1698,15 @@ class ReqGetMemo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['UserId'] = userId;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (userId != 0) {
+      data['UserId'] = userId;
+    }
     return data;
   }
 }
@@ -1233,8 +1729,12 @@ class RetGetMemo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     data['Memo'] = memo.toJson();
     return data;
   }
@@ -1248,7 +1748,13 @@ class ReqGmBan {
   late int banDuration;
   late String cause;
 
-  ReqGmBan({String? iD, String? pwd, int? banId, bool? ban, int? banDuration, String? cause})
+  ReqGmBan(
+      {String? iD,
+      String? pwd,
+      int? banId,
+      bool? ban,
+      int? banDuration,
+      String? cause})
       : iD = iD ?? '',
         pwd = pwd ?? '',
         banId = banId ?? 0,
@@ -1267,12 +1773,24 @@ class ReqGmBan {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['BanId'] = banId;
-    data['Ban'] = ban;
-    data['BanDuration'] = banDuration;
-    data['Cause'] = cause;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (banId != 0) {
+      data['BanId'] = banId;
+    }
+    if (ban) {
+      data['Ban'] = ban;
+    }
+    if (banDuration != 0) {
+      data['BanDuration'] = banDuration;
+    }
+    if (cause.isNotEmpty) {
+      data['Cause'] = cause;
+    }
     return data;
   }
 }
@@ -1292,8 +1810,12 @@ class RetGmBan {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -1311,14 +1833,22 @@ class GmMsg {
   GmMsg.fromJson(Map<String, dynamic> json) {
     subj = json['Subj'] ?? '';
     content = json['Content'] ?? '';
-    msgTime = json['MsgTime'] != null ? DateTime.parse(json['MsgTime']) : DateTime.utc(1);
+    msgTime = json['MsgTime'] != null
+        ? DateTime.parse(json['MsgTime'])
+        : DateTime.utc(1);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Subj'] = subj;
-    data['Content'] = content;
-    data['MsgTime'] = msgTime.toIso8601String();
+    if (subj.isNotEmpty) {
+      data['Subj'] = subj;
+    }
+    if (content.isNotEmpty) {
+      data['Content'] = content;
+    }
+    if (msgTime != DateTime.utc(1)) {
+      data['MsgTime'] = msgTime.toIso8601String();
+    }
     return data;
   }
 }
@@ -1344,9 +1874,15 @@ class ReqGmMsg {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['UserId'] = userId;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (userId != 0) {
+      data['UserId'] = userId;
+    }
     data['GmMsg'] = gmMsg.toJson();
     return data;
   }
@@ -1367,8 +1903,12 @@ class RetGmMsg {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
     return data;
   }
 }
@@ -1386,14 +1926,22 @@ class ReqGmMsgList {
   ReqGmMsgList.fromJson(Map<String, dynamic> json) {
     iD = json['ID'] ?? '';
     pwd = json['Pwd'] ?? '';
-    lastTime = json['LastTime'] != null ? DateTime.parse(json['LastTime']) : DateTime.utc(1);
+    lastTime = json['LastTime'] != null
+        ? DateTime.parse(json['LastTime'])
+        : DateTime.utc(1);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['LastTime'] = lastTime.toIso8601String();
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (lastTime != DateTime.utc(1)) {
+      data['LastTime'] = lastTime.toIso8601String();
+    }
     return data;
   }
 }
@@ -1417,9 +1965,15 @@ class RetGmMsgList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['GmMsg'] = gmMsg.map((v) => v.toJson()).toList();
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (gmMsg.isNotEmpty) {
+      data['GmMsg'] = gmMsg.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -1439,8 +1993,12 @@ class OssUrl {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Key'] = key;
-    data['Url'] = url;
+    if (key.isNotEmpty) {
+      data['Key'] = key;
+    }
+    if (url.isNotEmpty) {
+      data['Url'] = url;
+    }
     return data;
   }
 }
@@ -1452,7 +2010,12 @@ class ReqOss {
   late String regPwd;
   late List<String> ext;
 
-  ReqOss({String? iD, String? pwd, String? regHp, String? regPwd, List<String>? ext})
+  ReqOss(
+      {String? iD,
+      String? pwd,
+      String? regHp,
+      String? regPwd,
+      List<String>? ext})
       : iD = iD ?? '',
         pwd = pwd ?? '',
         regHp = regHp ?? '',
@@ -1469,11 +2032,21 @@ class ReqOss {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = iD;
-    data['Pwd'] = pwd;
-    data['RegHp'] = regHp;
-    data['RegPwd'] = regPwd;
-    data['Ext'] = ext;
+    if (iD.isNotEmpty) {
+      data['ID'] = iD;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (regHp.isNotEmpty) {
+      data['RegHp'] = regHp;
+    }
+    if (regPwd.isNotEmpty) {
+      data['RegPwd'] = regPwd;
+    }
+    if (ext.isNotEmpty) {
+      data['Ext'] = ext;
+    }
     return data;
   }
 }
@@ -1497,9 +2070,15 @@ class RetOss {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Err'] = err;
-    data['ErrDesc'] = errDesc;
-    data['OssUrl'] = ossUrl.map((v) => v.toJson()).toList();
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (ossUrl.isNotEmpty) {
+      data['OssUrl'] = ossUrl.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
