@@ -7,6 +7,10 @@ class ReqHead {
         pwd = pwd ?? '';
 
   ReqHead.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
@@ -32,6 +36,10 @@ class RetHead {
         errDesc = errDesc ?? '';
 
   RetHead.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
   }
@@ -59,6 +67,10 @@ class UserBase {
         logo = logo ?? '';
 
   UserBase.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     nm = json['Nm'] ?? '';
     logo = json['Logo'] ?? '';
@@ -88,6 +100,10 @@ class Photo {
         real = real ?? false;
 
   Photo.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     key = json['Key'] ?? '';
     real = json['Real'] ?? false;
   }
@@ -113,6 +129,10 @@ class Shot {
         certified = certified ?? false;
 
   Shot.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     key = json['Key'] ?? '';
     certified = json['Certified'] ?? false;
   }
@@ -149,9 +169,13 @@ class Memo {
         photoKey = photoKey ?? [];
 
   Memo.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     userId = json['UserId'] ?? '';
     isMeet = json['IsMeet'] ?? false;
-    like = json['Like'] ?? 0;
+    like = json['Like']?.toInt() ?? 0;
     memoName = json['MemoName'] ?? '';
     photoKey = json['PhotoKey']?.cast<String>() ?? [];
   }
@@ -335,12 +359,16 @@ class User {
         updatedAt = updatedAt ?? DateTime.utc(1);
 
   User.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     nm = json['Nm'] ?? '';
     logo = json['Logo'] ?? '';
-    sex = json['Sex'] ?? 0;
-    height = json['Height'] ?? 0;
-    weight = json['Weight'] ?? 0;
+    sex = json['Sex']?.toInt() ?? 0;
+    height = json['Height']?.toInt() ?? 0;
+    weight = json['Weight']?.toInt() ?? 0;
     birthdate = json['Birthdate'] != null
         ? DateTime.parse(json['Birthdate'])
         : DateTime.utc(1);
@@ -362,7 +390,7 @@ class User {
     logoBig = json['LogoBig'] ?? '';
     photo = [];
     json['Photo']?.forEach((v) => photo.add(Photo.fromJson(v)));
-    demands = json['Demands'] ?? 0;
+    demands = json['Demands']?.toInt() ?? 0;
     intro = json['Intro'] ?? '';
     school = json['School'] ?? '';
     company = json['Company'] ?? '';
@@ -371,7 +399,10 @@ class User {
     shot = [];
     json['Shot']?.forEach((v) => shot.add(Shot.fromJson(v)));
     wechat = json['Wechat'] ?? '';
-    gps = json['Gps']?.cast<double>() ?? [];
+    gps = (json['Gps'] as List<dynamic>)
+            ?.map<double>((e) => e.toDouble())
+            .toList() ??
+        [];
     blackHp = json['BlackHp']?.cast<String>() ?? [];
     blackWechat = json['BlackWechat']?.cast<String>() ?? [];
     blackId = json['BlackId']?.cast<String>() ?? [];
@@ -379,13 +410,13 @@ class User {
     showOnline = json['ShowOnline'] ?? false;
     showCertified = json['ShowCertified'] ?? false;
     showHavePlace = json['ShowHavePlace'] ?? false;
-    showHeightMin = json['ShowHeightMin'] ?? 0;
-    showHeightMax = json['ShowHeightMax'] ?? 0;
-    showWeightMin = json['ShowWeightMin'] ?? 0;
-    showWeightMax = json['ShowWeightMax'] ?? 0;
-    showAgeMin = json['ShowAgeMin'] ?? 0;
-    showAgeMax = json['ShowAgeMax'] ?? 0;
-    showMaxDist = json['ShowMaxDist'] ?? 0;
+    showHeightMin = json['ShowHeightMin']?.toInt() ?? 0;
+    showHeightMax = json['ShowHeightMax']?.toInt() ?? 0;
+    showWeightMin = json['ShowWeightMin']?.toInt() ?? 0;
+    showWeightMax = json['ShowWeightMax']?.toInt() ?? 0;
+    showAgeMin = json['ShowAgeMin']?.toInt() ?? 0;
+    showAgeMax = json['ShowAgeMax']?.toInt() ?? 0;
+    showMaxDist = json['ShowMaxDist']?.toInt() ?? 0;
     showMeet = json['ShowMeet'] ?? false;
     showNotLike = json['ShowNotLike'] ?? false;
     memo = [];
@@ -396,7 +427,7 @@ class User {
     banTime = json['BanTime'] != null
         ? DateTime.parse(json['BanTime'])
         : DateTime.utc(1);
-    bestScore = json['BestScore'] ?? 0;
+    bestScore = json['BestScore']?.toDouble() ?? 0;
     createdAt = json['created_at'] != null
         ? DateTime.parse(json['created_at'])
         : DateTime.utc(1);
@@ -620,12 +651,16 @@ class UserSummer {
         seenIt = seenIt ?? false;
 
   UserSummer.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     nm = json['Nm'] ?? '';
     logo = json['Logo'] ?? '';
-    sex = json['Sex'] ?? 0;
-    height = json['Height'] ?? 0;
-    weight = json['Weight'] ?? 0;
+    sex = json['Sex']?.toInt() ?? 0;
+    height = json['Height']?.toInt() ?? 0;
+    weight = json['Weight']?.toInt() ?? 0;
     birthdate = json['Birthdate'] != null
         ? DateTime.parse(json['Birthdate'])
         : DateTime.utc(1);
@@ -636,10 +671,10 @@ class UserSummer {
         ? DateTime.parse(json['LastTime'])
         : DateTime.utc(1);
     gpsName = json['GpsName'] ?? '';
-    dist = json['Dist'] ?? 0;
+    dist = json['Dist']?.toDouble() ?? 0;
     online = json['Online'] ?? false;
     isMeet = json['IsMeet'] ?? false;
-    like = json['Like'] ?? 0;
+    like = json['Like']?.toInt() ?? 0;
     seenIt = json['SeenIt'] ?? false;
   }
 
@@ -786,12 +821,16 @@ class UserDetail {
         memo = memo ?? Memo();
 
   UserDetail.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     nm = json['Nm'] ?? '';
     logo = json['Logo'] ?? '';
-    sex = json['Sex'] ?? 0;
-    height = json['Height'] ?? 0;
-    weight = json['Weight'] ?? 0;
+    sex = json['Sex']?.toInt() ?? 0;
+    height = json['Height']?.toInt() ?? 0;
+    weight = json['Weight']?.toInt() ?? 0;
     birthdate = json['Birthdate'] != null
         ? DateTime.parse(json['Birthdate'])
         : DateTime.utc(1);
@@ -813,11 +852,11 @@ class UserDetail {
     logoBig = json['LogoBig'] ?? '';
     photo = [];
     json['Photo']?.forEach((v) => photo.add(Photo.fromJson(v)));
-    demands = json['Demands'] ?? 0;
+    demands = json['Demands']?.toInt() ?? 0;
     intro = json['Intro'] ?? '';
     school = json['School'] ?? '';
     company = json['Company'] ?? '';
-    dist = json['Dist'] ?? 0;
+    dist = json['Dist']?.toDouble() ?? 0;
     online = json['Online'] ?? false;
     memo = json['Memo'] != null ? Memo.fromJson(json['Memo']) : Memo();
   }
@@ -920,6 +959,10 @@ class ReqLogin {
         user = user ?? User();
 
   ReqLogin.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     isReg = json['IsReg'] ?? false;
@@ -955,6 +998,10 @@ class RetLogin {
         user = user ?? User();
 
   RetLogin.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqLogin.fromJson(json['Req']) : ReqLogin();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -984,6 +1031,10 @@ class ReqGetMe {
         pwd = pwd ?? '';
 
   ReqGetMe.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
@@ -1013,6 +1064,10 @@ class RetGetMe {
         user = user ?? User();
 
   RetGetMe.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqGetMe.fromJson(json['Req']) : ReqGetMe();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1046,6 +1101,10 @@ class ReqSetMe {
         field = field ?? [];
 
   ReqSetMe.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     user = json['User'] != null ? User.fromJson(json['User']) : User();
@@ -1079,6 +1138,10 @@ class RetSetMe {
         errDesc = errDesc ?? '';
 
   RetSetMe.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqSetMe.fromJson(json['Req']) : ReqSetMe();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1132,12 +1195,19 @@ class ReqNear {
         showHavePlace = showHavePlace ?? false;
 
   ReqNear.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
-    gps = json['Gps']?.cast<double>() ?? [];
+    gps = (json['Gps'] as List<dynamic>)
+            ?.map<double>((e) => e.toDouble())
+            .toList() ??
+        [];
     type = json['Type'] ?? '';
-    skip = json['Skip'] ?? 0;
-    limit = json['Limit'] ?? 0;
+    skip = json['Skip']?.toInt() ?? 0;
+    limit = json['Limit']?.toInt() ?? 0;
     showNoContact = json['ShowNoContact'] ?? false;
     showOnline = json['ShowOnline'] ?? false;
     showCertified = json['ShowCertified'] ?? false;
@@ -1197,6 +1267,10 @@ class RetNear {
         userSummer = userSummer ?? [];
 
   RetNear.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqNear.fromJson(json['Req']) : ReqNear();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1231,6 +1305,10 @@ class ReqDetail {
         userId = userId ?? '';
 
   ReqDetail.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     userId = json['UserId'] ?? '';
@@ -1265,6 +1343,10 @@ class RetDetail {
         userDetail = userDetail ?? UserDetail();
 
   RetDetail.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqDetail.fromJson(json['Req']) : ReqDetail();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1298,6 +1380,10 @@ class ReqGetContact {
         toId = toId ?? '';
 
   ReqGetContact.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     toId = json['ToId'] ?? '';
@@ -1332,6 +1418,10 @@ class RetGetContact {
         wechat = wechat ?? '';
 
   RetGetContact.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null
         ? ReqGetContact.fromJson(json['Req'])
         : ReqGetContact();
@@ -1369,6 +1459,10 @@ class ReqBlack {
         key = key ?? '';
 
   ReqBlack.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     type = json['Type'] ?? '';
@@ -1406,6 +1500,10 @@ class RetBlack {
         key = key ?? '';
 
   RetBlack.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqBlack.fromJson(json['Req']) : ReqBlack();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1439,9 +1537,13 @@ class ReqBlackId {
         blackId = blackId ?? 0;
 
   ReqBlackId.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
-    blackId = json['BlackId'] ?? 0;
+    blackId = json['BlackId']?.toInt() ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -1473,6 +1575,10 @@ class RetBlackId {
         userBase = userBase ?? UserBase();
 
   RetBlackId.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqBlackId.fromJson(json['Req']) : ReqBlackId();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1504,6 +1610,10 @@ class ReqBlackIdList {
         pwd = pwd ?? '';
 
   ReqBlackIdList.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
@@ -1537,6 +1647,10 @@ class RetBlackIdList {
         userBase = userBase ?? [];
 
   RetBlackIdList.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null
         ? ReqBlackIdList.fromJson(json['Req'])
         : ReqBlackIdList();
@@ -1571,6 +1685,10 @@ class ReqLogout {
         pwd = pwd ?? '';
 
   ReqLogout.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
@@ -1598,6 +1716,10 @@ class RetLogout {
         errDesc = errDesc ?? '';
 
   RetLogout.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqLogout.fromJson(json['Req']) : ReqLogout();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1632,8 +1754,12 @@ class UserReport {
         imgKey = imgKey ?? '';
 
   UserReport.fromJson(Map<String, dynamic> json) {
-    id = json['Id'] ?? 0;
-    userId = json['UserId'] ?? 0;
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
+    id = json['Id']?.toInt() ?? 0;
+    userId = json['UserId']?.toInt() ?? 0;
     subj = json['Subj'] ?? '';
     content = json['Content'] ?? '';
     imgKey = json['ImgKey'] ?? '';
@@ -1671,6 +1797,10 @@ class ReqReport {
         userReport = userReport ?? UserReport();
 
   ReqReport.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     userReport = json['UserReport'] != null
@@ -1702,6 +1832,10 @@ class RetReport {
         errDesc = errDesc ?? '';
 
   RetReport.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqReport.fromJson(json['Req']) : ReqReport();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1731,6 +1865,10 @@ class ReqSetMemo {
         memo = memo ?? Memo();
 
   ReqSetMemo.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     memo = json['Memo'] != null ? Memo.fromJson(json['Memo']) : Memo();
@@ -1760,6 +1898,10 @@ class RetSetMemo {
         errDesc = errDesc ?? '';
 
   RetSetMemo.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqSetMemo.fromJson(json['Req']) : ReqSetMemo();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1789,9 +1931,13 @@ class ReqGetMemo {
         userId = userId ?? 0;
 
   ReqGetMemo.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
-    userId = json['UserId'] ?? 0;
+    userId = json['UserId']?.toInt() ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -1822,6 +1968,10 @@ class RetGetMemo {
         memo = memo ?? Memo();
 
   RetGetMemo.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqGetMemo.fromJson(json['Req']) : ReqGetMemo();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1865,11 +2015,15 @@ class ReqGmBan {
         cause = cause ?? '';
 
   ReqGmBan.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
-    banId = json['BanId'] ?? 0;
+    banId = json['BanId']?.toInt() ?? 0;
     ban = json['Ban'] ?? false;
-    banDuration = json['BanDuration'] ?? 0;
+    banDuration = json['BanDuration']?.toInt() ?? 0;
     cause = json['Cause'] ?? '';
   }
 
@@ -1908,6 +2062,10 @@ class RetGmBan {
         errDesc = errDesc ?? '';
 
   RetGmBan.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqGmBan.fromJson(json['Req']) : ReqGmBan();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -1937,6 +2095,10 @@ class GmMsg {
         msgTime = msgTime ?? DateTime.utc(1);
 
   GmMsg.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     subj = json['Subj'] ?? '';
     content = json['Content'] ?? '';
     msgTime = json['MsgTime'] != null
@@ -1972,9 +2134,13 @@ class ReqGmMsg {
         gmMsg = gmMsg ?? GmMsg();
 
   ReqGmMsg.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
-    userId = json['UserId'] ?? 0;
+    userId = json['UserId']?.toInt() ?? 0;
     gmMsg = json['GmMsg'] != null ? GmMsg.fromJson(json['GmMsg']) : GmMsg();
   }
 
@@ -2005,6 +2171,10 @@ class RetGmMsg {
         errDesc = errDesc ?? '';
 
   RetGmMsg.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqGmMsg.fromJson(json['Req']) : ReqGmMsg();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -2034,6 +2204,10 @@ class ReqGmMsgList {
         lastTime = lastTime ?? DateTime.utc(1);
 
   ReqGmMsgList.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     lastTime = json['LastTime'] != null
@@ -2070,6 +2244,10 @@ class RetGmMsgList {
         gmMsg = gmMsg ?? [];
 
   RetGmMsgList.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null
         ? ReqGmMsgList.fromJson(json['Req'])
         : ReqGmMsgList();
@@ -2104,6 +2282,10 @@ class OssUrl {
         url = url ?? '';
 
   OssUrl.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     key = json['Key'] ?? '';
     url = json['Url'] ?? '';
   }
@@ -2140,6 +2322,10 @@ class ReqOss {
         ext = ext ?? [];
 
   ReqOss.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     regHp = json['RegHp'] ?? '';
@@ -2181,6 +2367,10 @@ class RetOss {
         ossUrl = ossUrl ?? [];
 
   RetOss.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req = json['Req'] != null ? ReqOss.fromJson(json['Req']) : ReqOss();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
@@ -2217,6 +2407,10 @@ class ReqVerifyHp {
         isOneClick = isOneClick ?? false;
 
   ReqVerifyHp.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     hp = json['Hp'] ?? '';
@@ -2254,6 +2448,10 @@ class RetVerifyHp {
         pwd = pwd ?? '';
 
   RetVerifyHp.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
     req =
         json['Req'] != null ? ReqVerifyHp.fromJson(json['Req']) : ReqVerifyHp();
     err = json['Err'] ?? '';

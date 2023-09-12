@@ -152,7 +152,20 @@ class TypeDefinition {
     } else {
       if (isPrimitive) {
         if (name == "List") {
+          if (subtype == "double") {
+            //(json['Gps'] as List<dynamic>)?.map<double>((e) => e.toDouble()).toList() ?? []
+            return "$fieldKey = (json['$key'] as List<dynamic>)?.map<double>((e) => e.toDouble()).toList() ?? ${defaultValue()};";
+          } else if (subtype == "int") {
+            return "$fieldKey = (json['$key'] as List<dynamic>)?.map<int>((e) => e.toInt()).toList() ?? ${defaultValue()};";
+          }
+
           return "$fieldKey = json['$key']?.cast<$subtype>() ?? ${defaultValue()};";
+        }
+
+        if (name == "double") {
+          return "$fieldKey = json['$key']?.toDouble() ?? ${defaultValue()};";
+        } else if (name == "int") {
+          return "$fieldKey = json['$key']?.toInt() ?? ${defaultValue()};";
         }
         return "$fieldKey = json['$key'] ?? ${defaultValue()};";
       } else if (name == 'List') {
@@ -391,6 +404,25 @@ class ClassDefinition {
     return sb.toString();
   }
 
+  String get _jsonParseFuncC {
+    final sb = StringBuffer();
+    sb.write('\t$name');
+    sb.write('.fromJson(Map<String, dynamic> json) {\n');
+    sb.write('\tfromJson(json);');
+    sb.write('\t}');
+    return sb.toString();
+  }
+
+  String get _jsonParseFuncM {
+    final sb = StringBuffer();
+    sb.write('void fromJson(Map<String, dynamic> json) {\n');
+    for (var k in fields.keys) {
+      sb.write('\t\t${fields[k]!.jsonParseExpression(k, privateFields)}\n');
+    }
+    sb.write('\t}');
+    return sb.toString();
+  }
+
   String get _jsonGenFunc {
     final sb = StringBuffer();
     sb.write('\tMap<String, dynamic> toJson() {\n\t\tfinal Map<String, dynamic> data = <String, dynamic>{};\n');
@@ -407,7 +439,7 @@ class ClassDefinition {
     if (privateFields) {
       return 'class $name {\n$_fieldList\n\n$_defaultPrivateConstructor\n\n$_gettersSetters\n\n$_jsonParseFunc\n\n$_jsonGenFunc\n}\n';
     } else {
-      return 'class $name {\n$_fieldList\n\n$_defaultConstructor\n\n$_jsonParseFunc\n\n$_jsonGenFunc\n}\n';
+      return 'class $name {\n$_fieldList\n\n$_defaultConstructor\n\n$_jsonParseFuncC\n\n$_jsonParseFuncM\n\n$_jsonGenFunc\n}\n';
     }
   }
 }
