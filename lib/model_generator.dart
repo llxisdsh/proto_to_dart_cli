@@ -89,8 +89,10 @@ class ModelGenerator {
         final similarClass = allClasses.lastWhere((cd) => cd == classDefinition, orElse: () => ClassDefinition(""));
         if (similarClass.name != "") {
           final similarClassName = similarClass.name;
-          final currentClassName = classDefinition.name;
-          sameClassMapping[currentClassName] = similarClassName;
+          // TODO: 设置路径, 而不是类名替换
+          //final currentClassName = classDefinition.name;
+          //sameClassMapping[currentClassName] = similarClassName;
+          sameClassMapping[path] = similarClassName;
           print('$path $similarClassName');
         } else {
           print('$path error not define!!!');
@@ -142,9 +144,19 @@ class ModelGenerator {
       for (var f in fieldsKeys) {
         final typeForField = c.fields[f];
         if (typeForField != null) {
-          if (sameClassMapping.containsKey(typeForField.name)) {
-            c.fields[f]!.name = sameClassMapping[typeForField.name]!;
+          final path = "/${c.name}/$f";
+          //print("null:$path");
+          //TODO: 这里需要用路径查询相似类型
+          if (sameClassMapping.containsKey(path)) {
+            if (typeForField.name == "List") {
+              typeForField.subtype = sameClassMapping[path]!;
+            } else {
+              typeForField.name = sameClassMapping[path]!;
+            }
           }
+          // if (sameClassMapping.containsKey(typeForField.name)) {
+          //   c.fields[f]!.name = sameClassMapping[typeForField.name]!;
+          // }
         }
       }
     }

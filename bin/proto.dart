@@ -1,3 +1,53 @@
+class ReqHead {
+  late String id;
+  late String pwd;
+
+  ReqHead({String? id, String? pwd})
+      : id = id ?? '',
+        pwd = pwd ?? '';
+
+  ReqHead.fromJson(Map<String, dynamic> json) {
+    id = json['Id'] ?? '';
+    pwd = json['Pwd'] ?? '';
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (id.isNotEmpty) {
+      data['Id'] = id;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    return data;
+  }
+}
+
+class RetHead {
+  late String err;
+  late String errDesc;
+
+  RetHead({String? err, String? errDesc})
+      : err = err ?? '',
+        errDesc = errDesc ?? '';
+
+  RetHead.fromJson(Map<String, dynamic> json) {
+    err = json['Err'] ?? '';
+    errDesc = json['ErrDesc'] ?? '';
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    return data;
+  }
+}
+
 class UserBase {
   late String id;
   late String nm;
@@ -157,11 +207,13 @@ class User {
   late List<Shot> shot;
   late String wechat;
   late List<double> gps;
-  late DateTime vipTime;
-  late DateTime banTime;
   late List<String> blackHp;
   late List<String> blackWechat;
   late List<String> blackId;
+  late bool showNoContact;
+  late bool showOnline;
+  late bool showCertified;
+  late bool showHavePlace;
   late int showHeightMin;
   late int showHeightMax;
   late int showWeightMin;
@@ -172,6 +224,8 @@ class User {
   late bool showMeet;
   late bool showNotLike;
   late List<Memo> memo;
+  late DateTime vipTime;
+  late DateTime banTime;
   late double bestScore;
   late DateTime createdAt;
   late DateTime updatedAt;
@@ -206,11 +260,13 @@ class User {
       List<Shot>? shot,
       String? wechat,
       List<double>? gps,
-      DateTime? vipTime,
-      DateTime? banTime,
       List<String>? blackHp,
       List<String>? blackWechat,
       List<String>? blackId,
+      bool? showNoContact,
+      bool? showOnline,
+      bool? showCertified,
+      bool? showHavePlace,
       int? showHeightMin,
       int? showHeightMax,
       int? showWeightMin,
@@ -221,6 +277,8 @@ class User {
       bool? showMeet,
       bool? showNotLike,
       List<Memo>? memo,
+      DateTime? vipTime,
+      DateTime? banTime,
       double? bestScore,
       DateTime? createdAt,
       DateTime? updatedAt})
@@ -253,11 +311,13 @@ class User {
         shot = shot ?? [],
         wechat = wechat ?? '',
         gps = gps ?? [],
-        vipTime = vipTime ?? DateTime.utc(1),
-        banTime = banTime ?? DateTime.utc(1),
         blackHp = blackHp ?? [],
         blackWechat = blackWechat ?? [],
         blackId = blackId ?? [],
+        showNoContact = showNoContact ?? false,
+        showOnline = showOnline ?? false,
+        showCertified = showCertified ?? false,
+        showHavePlace = showHavePlace ?? false,
         showHeightMin = showHeightMin ?? 0,
         showHeightMax = showHeightMax ?? 0,
         showWeightMin = showWeightMin ?? 0,
@@ -268,6 +328,8 @@ class User {
         showMeet = showMeet ?? false,
         showNotLike = showNotLike ?? false,
         memo = memo ?? [],
+        vipTime = vipTime ?? DateTime.utc(1),
+        banTime = banTime ?? DateTime.utc(1),
         bestScore = bestScore ?? 0,
         createdAt = createdAt ?? DateTime.utc(1),
         updatedAt = updatedAt ?? DateTime.utc(1);
@@ -310,15 +372,13 @@ class User {
     json['Shot']?.forEach((v) => shot.add(Shot.fromJson(v)));
     wechat = json['Wechat'] ?? '';
     gps = json['Gps']?.cast<double>() ?? [];
-    vipTime = json['VipTime'] != null
-        ? DateTime.parse(json['VipTime'])
-        : DateTime.utc(1);
-    banTime = json['BanTime'] != null
-        ? DateTime.parse(json['BanTime'])
-        : DateTime.utc(1);
     blackHp = json['BlackHp']?.cast<String>() ?? [];
     blackWechat = json['BlackWechat']?.cast<String>() ?? [];
     blackId = json['BlackId']?.cast<String>() ?? [];
+    showNoContact = json['ShowNoContact'] ?? false;
+    showOnline = json['ShowOnline'] ?? false;
+    showCertified = json['ShowCertified'] ?? false;
+    showHavePlace = json['ShowHavePlace'] ?? false;
     showHeightMin = json['ShowHeightMin'] ?? 0;
     showHeightMax = json['ShowHeightMax'] ?? 0;
     showWeightMin = json['ShowWeightMin'] ?? 0;
@@ -330,6 +390,12 @@ class User {
     showNotLike = json['ShowNotLike'] ?? false;
     memo = [];
     json['Memo']?.forEach((v) => memo.add(Memo.fromJson(v)));
+    vipTime = json['VipTime'] != null
+        ? DateTime.parse(json['VipTime'])
+        : DateTime.utc(1);
+    banTime = json['BanTime'] != null
+        ? DateTime.parse(json['BanTime'])
+        : DateTime.utc(1);
     bestScore = json['BestScore'] ?? 0;
     createdAt = json['created_at'] != null
         ? DateTime.parse(json['created_at'])
@@ -428,12 +494,6 @@ class User {
     if (gps.isNotEmpty) {
       data['Gps'] = gps;
     }
-    if (vipTime != DateTime.utc(1)) {
-      data['VipTime'] = vipTime.toIso8601String();
-    }
-    if (banTime != DateTime.utc(1)) {
-      data['BanTime'] = banTime.toIso8601String();
-    }
     if (blackHp.isNotEmpty) {
       data['BlackHp'] = blackHp;
     }
@@ -442,6 +502,18 @@ class User {
     }
     if (blackId.isNotEmpty) {
       data['BlackId'] = blackId;
+    }
+    if (showNoContact) {
+      data['ShowNoContact'] = showNoContact;
+    }
+    if (showOnline) {
+      data['ShowOnline'] = showOnline;
+    }
+    if (showCertified) {
+      data['ShowCertified'] = showCertified;
+    }
+    if (showHavePlace) {
+      data['ShowHavePlace'] = showHavePlace;
     }
     if (showHeightMin != 0) {
       data['ShowHeightMin'] = showHeightMin;
@@ -473,6 +545,12 @@ class User {
     if (memo.isNotEmpty) {
       data['Memo'] = memo.map((v) => v.toJson()).toList();
     }
+    if (vipTime != DateTime.utc(1)) {
+      data['VipTime'] = vipTime.toIso8601String();
+    }
+    if (banTime != DateTime.utc(1)) {
+      data['BanTime'] = banTime.toIso8601String();
+    }
     if (bestScore != 0) {
       data['BestScore'] = bestScore;
     }
@@ -503,6 +581,7 @@ class UserSummer {
   late bool online;
   late bool isMeet;
   late int like;
+  late bool seenIt;
 
   UserSummer(
       {String? id,
@@ -520,7 +599,8 @@ class UserSummer {
       double? dist,
       bool? online,
       bool? isMeet,
-      int? like})
+      int? like,
+      bool? seenIt})
       : id = id ?? '',
         nm = nm ?? '',
         logo = logo ?? '',
@@ -536,7 +616,8 @@ class UserSummer {
         dist = dist ?? 0,
         online = online ?? false,
         isMeet = isMeet ?? false,
-        like = like ?? 0;
+        like = like ?? 0,
+        seenIt = seenIt ?? false;
 
   UserSummer.fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
@@ -559,6 +640,7 @@ class UserSummer {
     online = json['Online'] ?? false;
     isMeet = json['IsMeet'] ?? false;
     like = json['Like'] ?? 0;
+    seenIt = json['SeenIt'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
@@ -610,6 +692,9 @@ class UserSummer {
     }
     if (like != 0) {
       data['Like'] = like;
+    }
+    if (seenIt) {
+      data['SeenIt'] = seenIt;
     }
     return data;
   }
@@ -822,70 +907,20 @@ class UserDetail {
   }
 }
 
-class ReqHead {
-  late String iD;
-  late String pwd;
-
-  ReqHead({String? iD, String? pwd})
-      : iD = iD ?? '',
-        pwd = pwd ?? '';
-
-  ReqHead.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
-    pwd = json['Pwd'] ?? '';
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
-    }
-    if (pwd.isNotEmpty) {
-      data['Pwd'] = pwd;
-    }
-    return data;
-  }
-}
-
-class RetHead {
-  late String err;
-  late String errDesc;
-
-  RetHead({String? err, String? errDesc})
-      : err = err ?? '',
-        errDesc = errDesc ?? '';
-
-  RetHead.fromJson(Map<String, dynamic> json) {
-    err = json['Err'] ?? '';
-    errDesc = json['ErrDesc'] ?? '';
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (err.isNotEmpty) {
-      data['Err'] = err;
-    }
-    if (errDesc.isNotEmpty) {
-      data['ErrDesc'] = errDesc;
-    }
-    return data;
-  }
-}
-
 class ReqLogin {
-  late String iD;
+  late String id;
   late String pwd;
   late bool isReg;
   late User user;
 
-  ReqLogin({String? iD, String? pwd, bool? isReg, User? user})
-      : iD = iD ?? '',
+  ReqLogin({String? id, String? pwd, bool? isReg, User? user})
+      : id = id ?? '',
         pwd = pwd ?? '',
         isReg = isReg ?? false,
         user = user ?? User();
 
   ReqLogin.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     isReg = json['IsReg'] ?? false;
     user = json['User'] != null ? User.fromJson(json['User']) : User();
@@ -893,8 +928,8 @@ class ReqLogin {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -908,16 +943,19 @@ class ReqLogin {
 }
 
 class RetLogin {
+  late ReqLogin req;
   late String err;
   late String errDesc;
   late User user;
 
-  RetLogin({String? err, String? errDesc, User? user})
-      : err = err ?? '',
+  RetLogin({ReqLogin? req, String? err, String? errDesc, User? user})
+      : req = req ?? ReqLogin(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         user = user ?? User();
 
   RetLogin.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqLogin.fromJson(json['Req']) : ReqLogin();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     user = json['User'] != null ? User.fromJson(json['User']) : User();
@@ -925,6 +963,7 @@ class RetLogin {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -937,22 +976,22 @@ class RetLogin {
 }
 
 class ReqGetMe {
-  late String iD;
+  late String id;
   late String pwd;
 
-  ReqGetMe({String? iD, String? pwd})
-      : iD = iD ?? '',
+  ReqGetMe({String? id, String? pwd})
+      : id = id ?? '',
         pwd = pwd ?? '';
 
   ReqGetMe.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -962,16 +1001,19 @@ class ReqGetMe {
 }
 
 class RetGetMe {
+  late ReqGetMe req;
   late String err;
   late String errDesc;
   late User user;
 
-  RetGetMe({String? err, String? errDesc, User? user})
-      : err = err ?? '',
+  RetGetMe({ReqGetMe? req, String? err, String? errDesc, User? user})
+      : req = req ?? ReqGetMe(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         user = user ?? User();
 
   RetGetMe.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqGetMe.fromJson(json['Req']) : ReqGetMe();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     user = json['User'] != null ? User.fromJson(json['User']) : User();
@@ -979,6 +1021,7 @@ class RetGetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -991,19 +1034,19 @@ class RetGetMe {
 }
 
 class ReqSetMe {
-  late String iD;
+  late String id;
   late String pwd;
   late User user;
   late List<String> field;
 
-  ReqSetMe({String? iD, String? pwd, User? user, List<String>? field})
-      : iD = iD ?? '',
+  ReqSetMe({String? id, String? pwd, User? user, List<String>? field})
+      : id = id ?? '',
         pwd = pwd ?? '',
         user = user ?? User(),
         field = field ?? [];
 
   ReqSetMe.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     user = json['User'] != null ? User.fromJson(json['User']) : User();
     field = json['Field']?.cast<String>() ?? [];
@@ -1011,8 +1054,8 @@ class ReqSetMe {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1026,20 +1069,24 @@ class ReqSetMe {
 }
 
 class RetSetMe {
+  late ReqSetMe req;
   late String err;
   late String errDesc;
 
-  RetSetMe({String? err, String? errDesc})
-      : err = err ?? '',
+  RetSetMe({ReqSetMe? req, String? err, String? errDesc})
+      : req = req ?? ReqSetMe(),
+        err = err ?? '',
         errDesc = errDesc ?? '';
 
   RetSetMe.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqSetMe.fromJson(json['Req']) : ReqSetMe();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1051,56 +1098,56 @@ class RetSetMe {
 }
 
 class ReqNear {
-  late String iD;
+  late String id;
   late String pwd;
   late List<double> gps;
   late String type;
   late int skip;
   late int limit;
+  late bool showNoContact;
+  late bool showOnline;
   late bool showCertified;
   late bool showHavePlace;
-  late bool showOnline;
-  late bool showNoContact;
 
   ReqNear(
-      {String? iD,
+      {String? id,
       String? pwd,
       List<double>? gps,
       String? type,
       int? skip,
       int? limit,
-      bool? showCertified,
-      bool? showHavePlace,
+      bool? showNoContact,
       bool? showOnline,
-      bool? showNoContact})
-      : iD = iD ?? '',
+      bool? showCertified,
+      bool? showHavePlace})
+      : id = id ?? '',
         pwd = pwd ?? '',
         gps = gps ?? [],
         type = type ?? '',
         skip = skip ?? 0,
         limit = limit ?? 0,
-        showCertified = showCertified ?? false,
-        showHavePlace = showHavePlace ?? false,
+        showNoContact = showNoContact ?? false,
         showOnline = showOnline ?? false,
-        showNoContact = showNoContact ?? false;
+        showCertified = showCertified ?? false,
+        showHavePlace = showHavePlace ?? false;
 
   ReqNear.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     gps = json['Gps']?.cast<double>() ?? [];
     type = json['Type'] ?? '';
     skip = json['Skip'] ?? 0;
     limit = json['Limit'] ?? 0;
+    showNoContact = json['ShowNoContact'] ?? false;
+    showOnline = json['ShowOnline'] ?? false;
     showCertified = json['ShowCertified'] ?? false;
     showHavePlace = json['ShowHavePlace'] ?? false;
-    showOnline = json['ShowOnline'] ?? false;
-    showNoContact = json['ShowNoContact'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1117,33 +1164,40 @@ class ReqNear {
     if (limit != 0) {
       data['Limit'] = limit;
     }
+    if (showNoContact) {
+      data['ShowNoContact'] = showNoContact;
+    }
+    if (showOnline) {
+      data['ShowOnline'] = showOnline;
+    }
     if (showCertified) {
       data['ShowCertified'] = showCertified;
     }
     if (showHavePlace) {
       data['ShowHavePlace'] = showHavePlace;
     }
-    if (showOnline) {
-      data['ShowOnline'] = showOnline;
-    }
-    if (showNoContact) {
-      data['ShowNoContact'] = showNoContact;
-    }
     return data;
   }
 }
 
 class RetNear {
+  late ReqNear req;
   late String err;
   late String errDesc;
   late List<UserSummer> userSummer;
 
-  RetNear({String? err, String? errDesc, List<UserSummer>? userSummer})
-      : err = err ?? '',
+  RetNear(
+      {ReqNear? req,
+      String? err,
+      String? errDesc,
+      List<UserSummer>? userSummer})
+      : req = req ?? ReqNear(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         userSummer = userSummer ?? [];
 
   RetNear.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqNear.fromJson(json['Req']) : ReqNear();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     userSummer = [];
@@ -1152,6 +1206,7 @@ class RetNear {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1166,25 +1221,25 @@ class RetNear {
 }
 
 class ReqDetail {
-  late String iD;
+  late String id;
   late String pwd;
   late String userId;
 
-  ReqDetail({String? iD, String? pwd, String? userId})
-      : iD = iD ?? '',
+  ReqDetail({String? id, String? pwd, String? userId})
+      : id = id ?? '',
         pwd = pwd ?? '',
         userId = userId ?? '';
 
   ReqDetail.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     userId = json['UserId'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1197,16 +1252,20 @@ class ReqDetail {
 }
 
 class RetDetail {
+  late ReqDetail req;
   late String err;
   late String errDesc;
   late UserDetail userDetail;
 
-  RetDetail({String? err, String? errDesc, UserDetail? userDetail})
-      : err = err ?? '',
+  RetDetail(
+      {ReqDetail? req, String? err, String? errDesc, UserDetail? userDetail})
+      : req = req ?? ReqDetail(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         userDetail = userDetail ?? UserDetail();
 
   RetDetail.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqDetail.fromJson(json['Req']) : ReqDetail();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     userDetail = json['UserDetail'] != null
@@ -1216,6 +1275,7 @@ class RetDetail {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1228,25 +1288,25 @@ class RetDetail {
 }
 
 class ReqGetContact {
-  late String iD;
+  late String id;
   late String pwd;
   late String toId;
 
-  ReqGetContact({String? iD, String? pwd, String? toId})
-      : iD = iD ?? '',
+  ReqGetContact({String? id, String? pwd, String? toId})
+      : id = id ?? '',
         pwd = pwd ?? '',
         toId = toId ?? '';
 
   ReqGetContact.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     toId = json['ToId'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1259,16 +1319,22 @@ class ReqGetContact {
 }
 
 class RetGetContact {
+  late ReqGetContact req;
   late String err;
   late String errDesc;
   late String wechat;
 
-  RetGetContact({String? err, String? errDesc, String? wechat})
-      : err = err ?? '',
+  RetGetContact(
+      {ReqGetContact? req, String? err, String? errDesc, String? wechat})
+      : req = req ?? ReqGetContact(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         wechat = wechat ?? '';
 
   RetGetContact.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null
+        ? ReqGetContact.fromJson(json['Req'])
+        : ReqGetContact();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     wechat = json['Wechat'] ?? '';
@@ -1276,6 +1342,7 @@ class RetGetContact {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1290,19 +1357,19 @@ class RetGetContact {
 }
 
 class ReqBlack {
-  late String iD;
+  late String id;
   late String pwd;
   late String type;
   late String key;
 
-  ReqBlack({String? iD, String? pwd, String? type, String? key})
-      : iD = iD ?? '',
+  ReqBlack({String? id, String? pwd, String? type, String? key})
+      : id = id ?? '',
         pwd = pwd ?? '',
         type = type ?? '',
         key = key ?? '';
 
   ReqBlack.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     type = json['Type'] ?? '';
     key = json['Key'] ?? '';
@@ -1310,8 +1377,8 @@ class ReqBlack {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1327,16 +1394,19 @@ class ReqBlack {
 }
 
 class RetBlack {
+  late ReqBlack req;
   late String err;
   late String errDesc;
   late String key;
 
-  RetBlack({String? err, String? errDesc, String? key})
-      : err = err ?? '',
+  RetBlack({ReqBlack? req, String? err, String? errDesc, String? key})
+      : req = req ?? ReqBlack(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         key = key ?? '';
 
   RetBlack.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqBlack.fromJson(json['Req']) : ReqBlack();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     key = json['Key'] ?? '';
@@ -1344,6 +1414,7 @@ class RetBlack {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1358,25 +1429,25 @@ class RetBlack {
 }
 
 class ReqBlackId {
-  late String iD;
+  late String id;
   late String pwd;
   late int blackId;
 
-  ReqBlackId({String? iD, String? pwd, int? blackId})
-      : iD = iD ?? '',
+  ReqBlackId({String? id, String? pwd, int? blackId})
+      : id = id ?? '',
         pwd = pwd ?? '',
         blackId = blackId ?? 0;
 
   ReqBlackId.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     blackId = json['BlackId'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1389,16 +1460,20 @@ class ReqBlackId {
 }
 
 class RetBlackId {
+  late ReqBlackId req;
   late String err;
   late String errDesc;
   late UserBase userBase;
 
-  RetBlackId({String? err, String? errDesc, UserBase? userBase})
-      : err = err ?? '',
+  RetBlackId(
+      {ReqBlackId? req, String? err, String? errDesc, UserBase? userBase})
+      : req = req ?? ReqBlackId(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         userBase = userBase ?? UserBase();
 
   RetBlackId.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqBlackId.fromJson(json['Req']) : ReqBlackId();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     userBase = json['UserBase'] != null
@@ -1408,6 +1483,7 @@ class RetBlackId {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1420,22 +1496,22 @@ class RetBlackId {
 }
 
 class ReqBlackIdList {
-  late String iD;
+  late String id;
   late String pwd;
 
-  ReqBlackIdList({String? iD, String? pwd})
-      : iD = iD ?? '',
+  ReqBlackIdList({String? id, String? pwd})
+      : id = id ?? '',
         pwd = pwd ?? '';
 
   ReqBlackIdList.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1445,16 +1521,25 @@ class ReqBlackIdList {
 }
 
 class RetBlackIdList {
+  late ReqBlackIdList req;
   late String err;
   late String errDesc;
   late List<UserBase> userBase;
 
-  RetBlackIdList({String? err, String? errDesc, List<UserBase>? userBase})
-      : err = err ?? '',
+  RetBlackIdList(
+      {ReqBlackIdList? req,
+      String? err,
+      String? errDesc,
+      List<UserBase>? userBase})
+      : req = req ?? ReqBlackIdList(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         userBase = userBase ?? [];
 
   RetBlackIdList.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null
+        ? ReqBlackIdList.fromJson(json['Req'])
+        : ReqBlackIdList();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     userBase = [];
@@ -1463,6 +1548,7 @@ class RetBlackIdList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1477,22 +1563,22 @@ class RetBlackIdList {
 }
 
 class ReqLogout {
-  late String iD;
+  late String id;
   late String pwd;
 
-  ReqLogout({String? iD, String? pwd})
-      : iD = iD ?? '',
+  ReqLogout({String? id, String? pwd})
+      : id = id ?? '',
         pwd = pwd ?? '';
 
   ReqLogout.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1502,20 +1588,24 @@ class ReqLogout {
 }
 
 class RetLogout {
+  late ReqLogout req;
   late String err;
   late String errDesc;
 
-  RetLogout({String? err, String? errDesc})
-      : err = err ?? '',
+  RetLogout({ReqLogout? req, String? err, String? errDesc})
+      : req = req ?? ReqLogout(),
+        err = err ?? '',
         errDesc = errDesc ?? '';
 
   RetLogout.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqLogout.fromJson(json['Req']) : ReqLogout();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1571,17 +1661,17 @@ class UserReport {
 }
 
 class ReqReport {
-  late String iD;
+  late String id;
   late String pwd;
   late UserReport userReport;
 
-  ReqReport({String? iD, String? pwd, UserReport? userReport})
-      : iD = iD ?? '',
+  ReqReport({String? id, String? pwd, UserReport? userReport})
+      : id = id ?? '',
         pwd = pwd ?? '',
         userReport = userReport ?? UserReport();
 
   ReqReport.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     userReport = json['UserReport'] != null
         ? UserReport.fromJson(json['UserReport'])
@@ -1590,8 +1680,8 @@ class ReqReport {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1602,20 +1692,24 @@ class ReqReport {
 }
 
 class RetReport {
+  late ReqReport req;
   late String err;
   late String errDesc;
 
-  RetReport({String? err, String? errDesc})
-      : err = err ?? '',
+  RetReport({ReqReport? req, String? err, String? errDesc})
+      : req = req ?? ReqReport(),
+        err = err ?? '',
         errDesc = errDesc ?? '';
 
   RetReport.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqReport.fromJson(json['Req']) : ReqReport();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1627,25 +1721,25 @@ class RetReport {
 }
 
 class ReqSetMemo {
-  late String iD;
+  late String id;
   late String pwd;
   late Memo memo;
 
-  ReqSetMemo({String? iD, String? pwd, Memo? memo})
-      : iD = iD ?? '',
+  ReqSetMemo({String? id, String? pwd, Memo? memo})
+      : id = id ?? '',
         pwd = pwd ?? '',
         memo = memo ?? Memo();
 
   ReqSetMemo.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     memo = json['Memo'] != null ? Memo.fromJson(json['Memo']) : Memo();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1656,20 +1750,24 @@ class ReqSetMemo {
 }
 
 class RetSetMemo {
+  late ReqSetMemo req;
   late String err;
   late String errDesc;
 
-  RetSetMemo({String? err, String? errDesc})
-      : err = err ?? '',
+  RetSetMemo({ReqSetMemo? req, String? err, String? errDesc})
+      : req = req ?? ReqSetMemo(),
+        err = err ?? '',
         errDesc = errDesc ?? '';
 
   RetSetMemo.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqSetMemo.fromJson(json['Req']) : ReqSetMemo();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1681,25 +1779,25 @@ class RetSetMemo {
 }
 
 class ReqGetMemo {
-  late String iD;
+  late String id;
   late String pwd;
   late int userId;
 
-  ReqGetMemo({String? iD, String? pwd, int? userId})
-      : iD = iD ?? '',
+  ReqGetMemo({String? id, String? pwd, int? userId})
+      : id = id ?? '',
         pwd = pwd ?? '',
         userId = userId ?? 0;
 
   ReqGetMemo.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     userId = json['UserId'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1712,16 +1810,19 @@ class ReqGetMemo {
 }
 
 class RetGetMemo {
+  late ReqGetMemo req;
   late String err;
   late String errDesc;
   late Memo memo;
 
-  RetGetMemo({String? err, String? errDesc, Memo? memo})
-      : err = err ?? '',
+  RetGetMemo({ReqGetMemo? req, String? err, String? errDesc, Memo? memo})
+      : req = req ?? ReqGetMemo(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         memo = memo ?? Memo();
 
   RetGetMemo.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqGetMemo.fromJson(json['Req']) : ReqGetMemo();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     memo = json['Memo'] != null ? Memo.fromJson(json['Memo']) : Memo();
@@ -1729,6 +1830,7 @@ class RetGetMemo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1741,7 +1843,7 @@ class RetGetMemo {
 }
 
 class ReqGmBan {
-  late String iD;
+  late String id;
   late String pwd;
   late int banId;
   late bool ban;
@@ -1749,13 +1851,13 @@ class ReqGmBan {
   late String cause;
 
   ReqGmBan(
-      {String? iD,
+      {String? id,
       String? pwd,
       int? banId,
       bool? ban,
       int? banDuration,
       String? cause})
-      : iD = iD ?? '',
+      : id = id ?? '',
         pwd = pwd ?? '',
         banId = banId ?? 0,
         ban = ban ?? false,
@@ -1763,7 +1865,7 @@ class ReqGmBan {
         cause = cause ?? '';
 
   ReqGmBan.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     banId = json['BanId'] ?? 0;
     ban = json['Ban'] ?? false;
@@ -1773,8 +1875,8 @@ class ReqGmBan {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1796,20 +1898,24 @@ class ReqGmBan {
 }
 
 class RetGmBan {
+  late ReqGmBan req;
   late String err;
   late String errDesc;
 
-  RetGmBan({String? err, String? errDesc})
-      : err = err ?? '',
+  RetGmBan({ReqGmBan? req, String? err, String? errDesc})
+      : req = req ?? ReqGmBan(),
+        err = err ?? '',
         errDesc = errDesc ?? '';
 
   RetGmBan.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqGmBan.fromJson(json['Req']) : ReqGmBan();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1854,19 +1960,19 @@ class GmMsg {
 }
 
 class ReqGmMsg {
-  late String iD;
+  late String id;
   late String pwd;
   late int userId;
   late GmMsg gmMsg;
 
-  ReqGmMsg({String? iD, String? pwd, int? userId, GmMsg? gmMsg})
-      : iD = iD ?? '',
+  ReqGmMsg({String? id, String? pwd, int? userId, GmMsg? gmMsg})
+      : id = id ?? '',
         pwd = pwd ?? '',
         userId = userId ?? 0,
         gmMsg = gmMsg ?? GmMsg();
 
   ReqGmMsg.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     userId = json['UserId'] ?? 0;
     gmMsg = json['GmMsg'] != null ? GmMsg.fromJson(json['GmMsg']) : GmMsg();
@@ -1874,8 +1980,8 @@ class ReqGmMsg {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1889,20 +1995,24 @@ class ReqGmMsg {
 }
 
 class RetGmMsg {
+  late ReqGmMsg req;
   late String err;
   late String errDesc;
 
-  RetGmMsg({String? err, String? errDesc})
-      : err = err ?? '',
+  RetGmMsg({ReqGmMsg? req, String? err, String? errDesc})
+      : req = req ?? ReqGmMsg(),
+        err = err ?? '',
         errDesc = errDesc ?? '';
 
   RetGmMsg.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqGmMsg.fromJson(json['Req']) : ReqGmMsg();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -1914,17 +2024,17 @@ class RetGmMsg {
 }
 
 class ReqGmMsgList {
-  late String iD;
+  late String id;
   late String pwd;
   late DateTime lastTime;
 
-  ReqGmMsgList({String? iD, String? pwd, DateTime? lastTime})
-      : iD = iD ?? '',
+  ReqGmMsgList({String? id, String? pwd, DateTime? lastTime})
+      : id = id ?? '',
         pwd = pwd ?? '',
         lastTime = lastTime ?? DateTime.utc(1);
 
   ReqGmMsgList.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     lastTime = json['LastTime'] != null
         ? DateTime.parse(json['LastTime'])
@@ -1933,8 +2043,8 @@ class ReqGmMsgList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -1947,16 +2057,22 @@ class ReqGmMsgList {
 }
 
 class RetGmMsgList {
+  late ReqGmMsgList req;
   late String err;
   late String errDesc;
   late List<GmMsg> gmMsg;
 
-  RetGmMsgList({String? err, String? errDesc, List<GmMsg>? gmMsg})
-      : err = err ?? '',
+  RetGmMsgList(
+      {ReqGmMsgList? req, String? err, String? errDesc, List<GmMsg>? gmMsg})
+      : req = req ?? ReqGmMsgList(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         gmMsg = gmMsg ?? [];
 
   RetGmMsgList.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null
+        ? ReqGmMsgList.fromJson(json['Req'])
+        : ReqGmMsgList();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     gmMsg = [];
@@ -1965,6 +2081,7 @@ class RetGmMsgList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -2004,26 +2121,26 @@ class OssUrl {
 }
 
 class ReqOss {
-  late String iD;
+  late String id;
   late String pwd;
   late String regHp;
   late String regPwd;
   late List<String> ext;
 
   ReqOss(
-      {String? iD,
+      {String? id,
       String? pwd,
       String? regHp,
       String? regPwd,
       List<String>? ext})
-      : iD = iD ?? '',
+      : id = id ?? '',
         pwd = pwd ?? '',
         regHp = regHp ?? '',
         regPwd = regPwd ?? '',
         ext = ext ?? [];
 
   ReqOss.fromJson(Map<String, dynamic> json) {
-    iD = json['ID'] ?? '';
+    id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
     regHp = json['RegHp'] ?? '';
     regPwd = json['RegPwd'] ?? '';
@@ -2032,8 +2149,8 @@ class ReqOss {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (iD.isNotEmpty) {
-      data['ID'] = iD;
+    if (id.isNotEmpty) {
+      data['Id'] = id;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
@@ -2052,16 +2169,19 @@ class ReqOss {
 }
 
 class RetOss {
+  late ReqOss req;
   late String err;
   late String errDesc;
   late List<OssUrl> ossUrl;
 
-  RetOss({String? err, String? errDesc, List<OssUrl>? ossUrl})
-      : err = err ?? '',
+  RetOss({ReqOss? req, String? err, String? errDesc, List<OssUrl>? ossUrl})
+      : req = req ?? ReqOss(),
+        err = err ?? '',
         errDesc = errDesc ?? '',
         ossUrl = ossUrl ?? [];
 
   RetOss.fromJson(Map<String, dynamic> json) {
+    req = json['Req'] != null ? ReqOss.fromJson(json['Req']) : ReqOss();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
     ossUrl = [];
@@ -2070,6 +2190,7 @@ class RetOss {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
     if (err.isNotEmpty) {
       data['Err'] = err;
     }
@@ -2078,6 +2199,79 @@ class RetOss {
     }
     if (ossUrl.isNotEmpty) {
       data['OssUrl'] = ossUrl.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class ReqVerifyHp {
+  late String id;
+  late String pwd;
+  late String hp;
+  late bool isOneClick;
+
+  ReqVerifyHp({String? id, String? pwd, String? hp, bool? isOneClick})
+      : id = id ?? '',
+        pwd = pwd ?? '',
+        hp = hp ?? '',
+        isOneClick = isOneClick ?? false;
+
+  ReqVerifyHp.fromJson(Map<String, dynamic> json) {
+    id = json['Id'] ?? '';
+    pwd = json['Pwd'] ?? '';
+    hp = json['Hp'] ?? '';
+    isOneClick = json['IsOneClick'] ?? false;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (id.isNotEmpty) {
+      data['Id'] = id;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
+    }
+    if (hp.isNotEmpty) {
+      data['Hp'] = hp;
+    }
+    if (isOneClick) {
+      data['IsOneClick'] = isOneClick;
+    }
+    return data;
+  }
+}
+
+class RetVerifyHp {
+  late ReqVerifyHp req;
+  late String err;
+  late String errDesc;
+  late String pwd;
+
+  RetVerifyHp({ReqVerifyHp? req, String? err, String? errDesc, String? pwd})
+      : req = req ?? ReqVerifyHp(),
+        err = err ?? '',
+        errDesc = errDesc ?? '',
+        pwd = pwd ?? '';
+
+  RetVerifyHp.fromJson(Map<String, dynamic> json) {
+    req =
+        json['Req'] != null ? ReqVerifyHp.fromJson(json['Req']) : ReqVerifyHp();
+    err = json['Err'] ?? '';
+    errDesc = json['ErrDesc'] ?? '';
+    pwd = json['Pwd'] ?? '';
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Req'] = req.toJson();
+    if (err.isNotEmpty) {
+      data['Err'] = err;
+    }
+    if (errDesc.isNotEmpty) {
+      data['ErrDesc'] = errDesc;
+    }
+    if (pwd.isNotEmpty) {
+      data['Pwd'] = pwd;
     }
     return data;
   }
