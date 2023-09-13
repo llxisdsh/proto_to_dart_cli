@@ -153,10 +153,9 @@ class TypeDefinition {
       if (isPrimitive) {
         if (name == "List") {
           if (subtype == "double") {
-            //(json['Gps'] as List<dynamic>)?.map<double>((e) => e.toDouble()).toList() ?? []
-            return "$fieldKey = (json['$key'] as List<dynamic>)?.map<double>((e) => e.toDouble()).toList() ?? ${defaultValue()};";
+            return "$fieldKey = (json['$key'] as List<dynamic>?)?.map<double>((e) => e.toDouble()).toList() ?? ${defaultValue()};";
           } else if (subtype == "int") {
-            return "$fieldKey = (json['$key'] as List<dynamic>)?.map<int>((e) => e.toInt()).toList() ?? ${defaultValue()};";
+            return "$fieldKey = (json['$key'] as List<dynamic>?)?.map<int>((e) => e.toInt()).toList() ?? ${defaultValue()};";
           }
 
           return "$fieldKey = json['$key']?.cast<$subtype>() ?? ${defaultValue()};";

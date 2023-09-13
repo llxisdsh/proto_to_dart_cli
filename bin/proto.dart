@@ -399,7 +399,7 @@ class User {
     shot = [];
     json['Shot']?.forEach((v) => shot.add(Shot.fromJson(v)));
     wechat = json['Wechat'] ?? '';
-    gps = (json['Gps'] as List<dynamic>)
+    gps = (json['Gps'] as List<dynamic>?)
             ?.map<double>((e) => e.toDouble())
             .toList() ??
         [];
@@ -1201,7 +1201,7 @@ class ReqNear {
   void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
-    gps = (json['Gps'] as List<dynamic>)
+    gps = (json['Gps'] as List<dynamic>?)
             ?.map<double>((e) => e.toDouble())
             .toList() ??
         [];
