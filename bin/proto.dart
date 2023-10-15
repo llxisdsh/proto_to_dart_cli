@@ -215,11 +215,12 @@ class User {
   late DateTime lastTime;
   late String gpsName;
   late DateTime regTime;
-  late String style;
-  late String degree;
   late String career;
+  late String degree;
   late String income;
+  late String homeland;
   late List<String> labels;
+  late String style;
   late String logoBig;
   late List<Photo> photo;
   late int demands;
@@ -230,23 +231,24 @@ class User {
   late String pwd;
   late List<Shot> shot;
   late String wechat;
+  late bool confirmUnlock;
   late List<double> gps;
   late List<String> blackHp;
   late List<String> blackWechat;
   late List<String> blackId;
-  late bool showNoContact;
-  late bool showOnline;
-  late bool showCertified;
-  late bool showHavePlace;
   late int showHeightMin;
   late int showHeightMax;
   late int showWeightMin;
   late int showWeightMax;
   late int showAgeMin;
   late int showAgeMax;
-  late int showMaxDist;
+  late int showDistMax;
+  late int showOnlineSecMax;
+  late bool showNoContact;
   late bool showMeet;
   late bool showNotLike;
+  late bool showCertified;
+  late bool showHavePlace;
   late List<Memo> memo;
   late DateTime vipTime;
   late DateTime banTime;
@@ -268,11 +270,12 @@ class User {
       DateTime? lastTime,
       String? gpsName,
       DateTime? regTime,
-      String? style,
-      String? degree,
       String? career,
+      String? degree,
       String? income,
+      String? homeland,
       List<String>? labels,
+      String? style,
       String? logoBig,
       List<Photo>? photo,
       int? demands,
@@ -283,23 +286,24 @@ class User {
       String? pwd,
       List<Shot>? shot,
       String? wechat,
+      bool? confirmUnlock,
       List<double>? gps,
       List<String>? blackHp,
       List<String>? blackWechat,
       List<String>? blackId,
-      bool? showNoContact,
-      bool? showOnline,
-      bool? showCertified,
-      bool? showHavePlace,
       int? showHeightMin,
       int? showHeightMax,
       int? showWeightMin,
       int? showWeightMax,
       int? showAgeMin,
       int? showAgeMax,
-      int? showMaxDist,
+      int? showDistMax,
+      int? showOnlineSecMax,
+      bool? showNoContact,
       bool? showMeet,
       bool? showNotLike,
+      bool? showCertified,
+      bool? showHavePlace,
       List<Memo>? memo,
       DateTime? vipTime,
       DateTime? banTime,
@@ -319,11 +323,12 @@ class User {
         lastTime = lastTime ?? DateTime.utc(1),
         gpsName = gpsName ?? '',
         regTime = regTime ?? DateTime.utc(1),
-        style = style ?? '',
-        degree = degree ?? '',
         career = career ?? '',
+        degree = degree ?? '',
         income = income ?? '',
+        homeland = homeland ?? '',
         labels = labels ?? [],
+        style = style ?? '',
         logoBig = logoBig ?? '',
         photo = photo ?? [],
         demands = demands ?? 0,
@@ -334,23 +339,24 @@ class User {
         pwd = pwd ?? '',
         shot = shot ?? [],
         wechat = wechat ?? '',
+        confirmUnlock = confirmUnlock ?? false,
         gps = gps ?? [],
         blackHp = blackHp ?? [],
         blackWechat = blackWechat ?? [],
         blackId = blackId ?? [],
-        showNoContact = showNoContact ?? false,
-        showOnline = showOnline ?? false,
-        showCertified = showCertified ?? false,
-        showHavePlace = showHavePlace ?? false,
         showHeightMin = showHeightMin ?? 0,
         showHeightMax = showHeightMax ?? 0,
         showWeightMin = showWeightMin ?? 0,
         showWeightMax = showWeightMax ?? 0,
         showAgeMin = showAgeMin ?? 0,
         showAgeMax = showAgeMax ?? 0,
-        showMaxDist = showMaxDist ?? 0,
+        showDistMax = showDistMax ?? 0,
+        showOnlineSecMax = showOnlineSecMax ?? 0,
+        showNoContact = showNoContact ?? false,
         showMeet = showMeet ?? false,
         showNotLike = showNotLike ?? false,
+        showCertified = showCertified ?? false,
+        showHavePlace = showHavePlace ?? false,
         memo = memo ?? [],
         vipTime = vipTime ?? DateTime.utc(1),
         banTime = banTime ?? DateTime.utc(1),
@@ -382,11 +388,12 @@ class User {
     regTime = json['RegTime'] != null
         ? DateTime.parse(json['RegTime'])
         : DateTime.utc(1);
-    style = json['Style'] ?? '';
-    degree = json['Degree'] ?? '';
     career = json['Career'] ?? '';
+    degree = json['Degree'] ?? '';
     income = json['Income'] ?? '';
+    homeland = json['Homeland'] ?? '';
     labels = json['Labels']?.cast<String>() ?? [];
+    style = json['Style'] ?? '';
     logoBig = json['LogoBig'] ?? '';
     photo = [];
     json['Photo']?.forEach((v) => photo.add(Photo.fromJson(v)));
@@ -399,6 +406,7 @@ class User {
     shot = [];
     json['Shot']?.forEach((v) => shot.add(Shot.fromJson(v)));
     wechat = json['Wechat'] ?? '';
+    confirmUnlock = json['ConfirmUnlock'] ?? false;
     gps = (json['Gps'] as List<dynamic>?)
             ?.map<double>((e) => e.toDouble())
             .toList() ??
@@ -406,19 +414,19 @@ class User {
     blackHp = json['BlackHp']?.cast<String>() ?? [];
     blackWechat = json['BlackWechat']?.cast<String>() ?? [];
     blackId = json['BlackId']?.cast<String>() ?? [];
-    showNoContact = json['ShowNoContact'] ?? false;
-    showOnline = json['ShowOnline'] ?? false;
-    showCertified = json['ShowCertified'] ?? false;
-    showHavePlace = json['ShowHavePlace'] ?? false;
     showHeightMin = json['ShowHeightMin']?.toInt() ?? 0;
     showHeightMax = json['ShowHeightMax']?.toInt() ?? 0;
     showWeightMin = json['ShowWeightMin']?.toInt() ?? 0;
     showWeightMax = json['ShowWeightMax']?.toInt() ?? 0;
     showAgeMin = json['ShowAgeMin']?.toInt() ?? 0;
     showAgeMax = json['ShowAgeMax']?.toInt() ?? 0;
-    showMaxDist = json['ShowMaxDist']?.toInt() ?? 0;
+    showDistMax = json['ShowDistMax']?.toInt() ?? 0;
+    showOnlineSecMax = json['ShowOnlineSecMax']?.toInt() ?? 0;
+    showNoContact = json['ShowNoContact'] ?? false;
     showMeet = json['ShowMeet'] ?? false;
     showNotLike = json['ShowNotLike'] ?? false;
+    showCertified = json['ShowCertified'] ?? false;
+    showHavePlace = json['ShowHavePlace'] ?? false;
     memo = [];
     json['Memo']?.forEach((v) => memo.add(Memo.fromJson(v)));
     vipTime = json['VipTime'] != null
@@ -457,7 +465,7 @@ class User {
       data['Weight'] = weight;
     }
     if (birthdate != DateTime.utc(1)) {
-      data['Birthdate'] = birthdate.toIso8601String();
+      data['Birthdate'] = birthdate.toUtc().toIso8601String();
     }
     if (certified) {
       data['Certified'] = certified;
@@ -469,28 +477,31 @@ class User {
       data['NowHavePlace'] = nowHavePlace;
     }
     if (lastTime != DateTime.utc(1)) {
-      data['LastTime'] = lastTime.toIso8601String();
+      data['LastTime'] = lastTime.toUtc().toIso8601String();
     }
     if (gpsName.isNotEmpty) {
       data['GpsName'] = gpsName;
     }
     if (regTime != DateTime.utc(1)) {
-      data['RegTime'] = regTime.toIso8601String();
-    }
-    if (style.isNotEmpty) {
-      data['Style'] = style;
-    }
-    if (degree.isNotEmpty) {
-      data['Degree'] = degree;
+      data['RegTime'] = regTime.toUtc().toIso8601String();
     }
     if (career.isNotEmpty) {
       data['Career'] = career;
     }
+    if (degree.isNotEmpty) {
+      data['Degree'] = degree;
+    }
     if (income.isNotEmpty) {
       data['Income'] = income;
     }
+    if (homeland.isNotEmpty) {
+      data['Homeland'] = homeland;
+    }
     if (labels.isNotEmpty) {
       data['Labels'] = labels;
+    }
+    if (style.isNotEmpty) {
+      data['Style'] = style;
     }
     if (logoBig.isNotEmpty) {
       data['LogoBig'] = logoBig;
@@ -522,6 +533,9 @@ class User {
     if (wechat.isNotEmpty) {
       data['Wechat'] = wechat;
     }
+    if (confirmUnlock) {
+      data['ConfirmUnlock'] = confirmUnlock;
+    }
     if (gps.isNotEmpty) {
       data['Gps'] = gps;
     }
@@ -533,18 +547,6 @@ class User {
     }
     if (blackId.isNotEmpty) {
       data['BlackId'] = blackId;
-    }
-    if (showNoContact) {
-      data['ShowNoContact'] = showNoContact;
-    }
-    if (showOnline) {
-      data['ShowOnline'] = showOnline;
-    }
-    if (showCertified) {
-      data['ShowCertified'] = showCertified;
-    }
-    if (showHavePlace) {
-      data['ShowHavePlace'] = showHavePlace;
     }
     if (showHeightMin != 0) {
       data['ShowHeightMin'] = showHeightMin;
@@ -564,8 +566,14 @@ class User {
     if (showAgeMax != 0) {
       data['ShowAgeMax'] = showAgeMax;
     }
-    if (showMaxDist != 0) {
-      data['ShowMaxDist'] = showMaxDist;
+    if (showDistMax != 0) {
+      data['ShowDistMax'] = showDistMax;
+    }
+    if (showOnlineSecMax != 0) {
+      data['ShowOnlineSecMax'] = showOnlineSecMax;
+    }
+    if (showNoContact) {
+      data['ShowNoContact'] = showNoContact;
     }
     if (showMeet) {
       data['ShowMeet'] = showMeet;
@@ -573,23 +581,29 @@ class User {
     if (showNotLike) {
       data['ShowNotLike'] = showNotLike;
     }
+    if (showCertified) {
+      data['ShowCertified'] = showCertified;
+    }
+    if (showHavePlace) {
+      data['ShowHavePlace'] = showHavePlace;
+    }
     if (memo.isNotEmpty) {
       data['Memo'] = memo.map((v) => v.toJson()).toList();
     }
     if (vipTime != DateTime.utc(1)) {
-      data['VipTime'] = vipTime.toIso8601String();
+      data['VipTime'] = vipTime.toUtc().toIso8601String();
     }
     if (banTime != DateTime.utc(1)) {
-      data['BanTime'] = banTime.toIso8601String();
+      data['BanTime'] = banTime.toUtc().toIso8601String();
     }
     if (bestScore != 0) {
       data['BestScore'] = bestScore;
     }
     if (createdAt != DateTime.utc(1)) {
-      data['created_at'] = createdAt.toIso8601String();
+      data['created_at'] = createdAt.toUtc().toIso8601String();
     }
     if (updatedAt != DateTime.utc(1)) {
-      data['updated_at'] = updatedAt.toIso8601String();
+      data['updated_at'] = updatedAt.toUtc().toIso8601String();
     }
     return data;
   }
@@ -699,7 +713,7 @@ class UserSummer {
       data['Weight'] = weight;
     }
     if (birthdate != DateTime.utc(1)) {
-      data['Birthdate'] = birthdate.toIso8601String();
+      data['Birthdate'] = birthdate.toUtc().toIso8601String();
     }
     if (certified) {
       data['Certified'] = certified;
@@ -711,7 +725,7 @@ class UserSummer {
       data['NowHavePlace'] = nowHavePlace;
     }
     if (lastTime != DateTime.utc(1)) {
-      data['LastTime'] = lastTime.toIso8601String();
+      data['LastTime'] = lastTime.toUtc().toIso8601String();
     }
     if (gpsName.isNotEmpty) {
       data['GpsName'] = gpsName;
@@ -749,11 +763,12 @@ class UserDetail {
   late DateTime lastTime;
   late String gpsName;
   late DateTime regTime;
-  late String style;
-  late String degree;
   late String career;
+  late String degree;
   late String income;
+  late String homeland;
   late List<String> labels;
+  late String style;
   late String logoBig;
   late List<Photo> photo;
   late int demands;
@@ -778,11 +793,12 @@ class UserDetail {
       DateTime? lastTime,
       String? gpsName,
       DateTime? regTime,
-      String? style,
-      String? degree,
       String? career,
+      String? degree,
       String? income,
+      String? homeland,
       List<String>? labels,
+      String? style,
       String? logoBig,
       List<Photo>? photo,
       int? demands,
@@ -805,11 +821,12 @@ class UserDetail {
         lastTime = lastTime ?? DateTime.utc(1),
         gpsName = gpsName ?? '',
         regTime = regTime ?? DateTime.utc(1),
-        style = style ?? '',
-        degree = degree ?? '',
         career = career ?? '',
+        degree = degree ?? '',
         income = income ?? '',
+        homeland = homeland ?? '',
         labels = labels ?? [],
+        style = style ?? '',
         logoBig = logoBig ?? '',
         photo = photo ?? [],
         demands = demands ?? 0,
@@ -844,11 +861,12 @@ class UserDetail {
     regTime = json['RegTime'] != null
         ? DateTime.parse(json['RegTime'])
         : DateTime.utc(1);
-    style = json['Style'] ?? '';
-    degree = json['Degree'] ?? '';
     career = json['Career'] ?? '';
+    degree = json['Degree'] ?? '';
     income = json['Income'] ?? '';
+    homeland = json['Homeland'] ?? '';
     labels = json['Labels']?.cast<String>() ?? [];
+    style = json['Style'] ?? '';
     logoBig = json['LogoBig'] ?? '';
     photo = [];
     json['Photo']?.forEach((v) => photo.add(Photo.fromJson(v)));
@@ -882,7 +900,7 @@ class UserDetail {
       data['Weight'] = weight;
     }
     if (birthdate != DateTime.utc(1)) {
-      data['Birthdate'] = birthdate.toIso8601String();
+      data['Birthdate'] = birthdate.toUtc().toIso8601String();
     }
     if (certified) {
       data['Certified'] = certified;
@@ -894,28 +912,31 @@ class UserDetail {
       data['NowHavePlace'] = nowHavePlace;
     }
     if (lastTime != DateTime.utc(1)) {
-      data['LastTime'] = lastTime.toIso8601String();
+      data['LastTime'] = lastTime.toUtc().toIso8601String();
     }
     if (gpsName.isNotEmpty) {
       data['GpsName'] = gpsName;
     }
     if (regTime != DateTime.utc(1)) {
-      data['RegTime'] = regTime.toIso8601String();
-    }
-    if (style.isNotEmpty) {
-      data['Style'] = style;
-    }
-    if (degree.isNotEmpty) {
-      data['Degree'] = degree;
+      data['RegTime'] = regTime.toUtc().toIso8601String();
     }
     if (career.isNotEmpty) {
       data['Career'] = career;
     }
+    if (degree.isNotEmpty) {
+      data['Degree'] = degree;
+    }
     if (income.isNotEmpty) {
       data['Income'] = income;
     }
+    if (homeland.isNotEmpty) {
+      data['Homeland'] = homeland;
+    }
     if (labels.isNotEmpty) {
       data['Labels'] = labels;
+    }
+    if (style.isNotEmpty) {
+      data['Style'] = style;
     }
     if (logoBig.isNotEmpty) {
       data['LogoBig'] = logoBig;
@@ -949,13 +970,11 @@ class UserDetail {
 class ReqLogin {
   late String id;
   late String pwd;
-  late bool isReg;
   late User user;
 
-  ReqLogin({String? id, String? pwd, bool? isReg, User? user})
+  ReqLogin({String? id, String? pwd, User? user})
       : id = id ?? '',
         pwd = pwd ?? '',
-        isReg = isReg ?? false,
         user = user ?? User();
 
   ReqLogin.fromJson(Map<String, dynamic> json) {
@@ -965,7 +984,6 @@ class ReqLogin {
   void fromJson(Map<String, dynamic> json) {
     id = json['Id'] ?? '';
     pwd = json['Pwd'] ?? '';
-    isReg = json['IsReg'] ?? false;
     user = json['User'] != null ? User.fromJson(json['User']) : User();
   }
 
@@ -976,9 +994,6 @@ class ReqLogin {
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;
-    }
-    if (isReg) {
-      data['IsReg'] = isReg;
     }
     data['User'] = user.toJson();
     return data;
@@ -1167,10 +1182,6 @@ class ReqNear {
   late String type;
   late int skip;
   late int limit;
-  late bool showNoContact;
-  late bool showOnline;
-  late bool showCertified;
-  late bool showHavePlace;
 
   ReqNear(
       {String? id,
@@ -1178,21 +1189,13 @@ class ReqNear {
       List<double>? gps,
       String? type,
       int? skip,
-      int? limit,
-      bool? showNoContact,
-      bool? showOnline,
-      bool? showCertified,
-      bool? showHavePlace})
+      int? limit})
       : id = id ?? '',
         pwd = pwd ?? '',
         gps = gps ?? [],
         type = type ?? '',
         skip = skip ?? 0,
-        limit = limit ?? 0,
-        showNoContact = showNoContact ?? false,
-        showOnline = showOnline ?? false,
-        showCertified = showCertified ?? false,
-        showHavePlace = showHavePlace ?? false;
+        limit = limit ?? 0;
 
   ReqNear.fromJson(Map<String, dynamic> json) {
     fromJson(json);
@@ -1208,10 +1211,6 @@ class ReqNear {
     type = json['Type'] ?? '';
     skip = json['Skip']?.toInt() ?? 0;
     limit = json['Limit']?.toInt() ?? 0;
-    showNoContact = json['ShowNoContact'] ?? false;
-    showOnline = json['ShowOnline'] ?? false;
-    showCertified = json['ShowCertified'] ?? false;
-    showHavePlace = json['ShowHavePlace'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
@@ -1233,18 +1232,6 @@ class ReqNear {
     }
     if (limit != 0) {
       data['Limit'] = limit;
-    }
-    if (showNoContact) {
-      data['ShowNoContact'] = showNoContact;
-    }
-    if (showOnline) {
-      data['ShowOnline'] = showOnline;
-    }
-    if (showCertified) {
-      data['ShowCertified'] = showCertified;
-    }
-    if (showHavePlace) {
-      data['ShowHavePlace'] = showHavePlace;
     }
     return data;
   }
@@ -2115,7 +2102,7 @@ class GmMsg {
       data['Content'] = content;
     }
     if (msgTime != DateTime.utc(1)) {
-      data['MsgTime'] = msgTime.toIso8601String();
+      data['MsgTime'] = msgTime.toUtc().toIso8601String();
     }
     return data;
   }
@@ -2224,7 +2211,7 @@ class ReqGmMsgList {
       data['Pwd'] = pwd;
     }
     if (lastTime != DateTime.utc(1)) {
-      data['LastTime'] = lastTime.toIso8601String();
+      data['LastTime'] = lastTime.toUtc().toIso8601String();
     }
     return data;
   }
@@ -2439,12 +2426,15 @@ class RetVerifyHp {
   late ReqVerifyHp req;
   late String err;
   late String errDesc;
+  late String hp;
   late String pwd;
 
-  RetVerifyHp({ReqVerifyHp? req, String? err, String? errDesc, String? pwd})
+  RetVerifyHp(
+      {ReqVerifyHp? req, String? err, String? errDesc, String? hp, String? pwd})
       : req = req ?? ReqVerifyHp(),
         err = err ?? '',
         errDesc = errDesc ?? '',
+        hp = hp ?? '',
         pwd = pwd ?? '';
 
   RetVerifyHp.fromJson(Map<String, dynamic> json) {
@@ -2456,6 +2446,7 @@ class RetVerifyHp {
         json['Req'] != null ? ReqVerifyHp.fromJson(json['Req']) : ReqVerifyHp();
     err = json['Err'] ?? '';
     errDesc = json['ErrDesc'] ?? '';
+    hp = json['Hp'] ?? '';
     pwd = json['Pwd'] ?? '';
   }
 
@@ -2467,6 +2458,9 @@ class RetVerifyHp {
     }
     if (errDesc.isNotEmpty) {
       data['ErrDesc'] = errDesc;
+    }
+    if (hp.isNotEmpty) {
+      data['Hp'] = hp;
     }
     if (pwd.isNotEmpty) {
       data['Pwd'] = pwd;

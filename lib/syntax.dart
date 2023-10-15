@@ -186,11 +186,11 @@ class TypeDefinition {
     final thisKey = fieldKey;
 
     if (name == "DateTime") {
-      //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.toIso8601String();\n\t\t}";
-      return "if (${ifNotEmpty(thisKey)}) { data['$key'] = $thisKey.toIso8601String(); }";
+      //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.toUtc().toIso8601String();\n\t\t}";
+      return "if (${ifNotEmpty(thisKey)}) { data['$key'] = $thisKey.toUtc().toIso8601String(); }";
     } else if (name == "List" && subtype == "DateTime") {
-      //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => v.toIso8601String()).toList();\n\t\t}";
-      return "if ($thisKey.isNotEmpty}) { data['$key'] = $thisKey.map((v) => v.toIso8601String()).toList(); }";
+      //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey!.map((v) => v.toUtc().toIso8601String()).toList();\n\t\t}";
+      return "if ($thisKey.isNotEmpty}) { data['$key'] = $thisKey.map((v) => v.toUtc().toIso8601String()).toList(); }";
     } else {
       if (isPrimitive) {
         //return "if ($thisKey != null) {\n\t\t\tdata['$key'] = $thisKey;\n\t\t}";
